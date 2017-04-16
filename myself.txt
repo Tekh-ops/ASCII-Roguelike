@@ -1,0 +1,5 @@
+TODO:
+	Port to PDCurses or some form of graphical library.
+	Why? The screen flickering destroys my immersion.
+	Besides I think it'd be nice to have a better look
+	for this.
