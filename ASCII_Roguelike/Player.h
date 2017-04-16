@@ -11,7 +11,7 @@ public:
 	Player(int defense, int health, int lockpick); // Inital
 	void setPosition(int x, int y);
 	void ProcessInput(char in, std::vector<Door> doors , Map &map);
-	bool ProcessMove(Map &map, std::vector<Door>doors, int targetX, int targetY);
+	bool ProcessMove(Map &map, std::vector<Door> doors, int targetX, int targetY);
 	void LevelUp()
 	{
 		if (_xp == _xpReq)
@@ -28,6 +28,7 @@ public:
 	void AddXP(int val)
 	{
 		_xp += val;
+		_xpReq -= val;
 	}
 	inline int GetXpTilNextLevel() { return _xpReq; }
 	inline int GetHealth() { return _hp; }

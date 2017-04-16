@@ -1,4 +1,6 @@
 #include "Player.h"
+#include <time.h>
+std::string msgs[4] = { "This game sucks", "I'm bored", "I should play MGS:V", "Bored..." };
 Player::Player()
 {
 
@@ -65,6 +67,18 @@ void Player::ProcessInput(char in, std::vector<Door> doors , Map &map)
 			setPosition(targetX, targetY);
 		}
 		break;
+	case 'Q':
+	case 'q':
+		// should replace with something else
+		// since it's not really an error
+		exit(0);
+		break;
+	case 'T':
+	case 't':
+	
+		srand(time(NULL));
+		std::cout << msgs[rand() % 4] << std::endl;
+		break;
 	default:
 		std::cout << "Invalid Input. try again" << std::endl;
 		break;
@@ -75,6 +89,7 @@ bool Player::ProcessMove(Map &map, std::vector<Door> doors, int targetX, int tar
 {
 	if ((map.GetTile(targetX, targetY) == '#'))
     {
+		std::cout << "Seems you've hit a wall. hmm" << std::endl;
 		return false;
 	}
 	if ((map.GetTile(targetX, targetY) == '|') || (map.GetTile(targetX,targetY) == '-') || map.GetTile(targetX, targetY) == 'X')
@@ -84,7 +99,9 @@ bool Player::ProcessMove(Map &map, std::vector<Door> doors, int targetX, int tar
 			if (doors[i].getX() == targetX && doors[i].getY() == targetY)
 			{
 				std::cout << "Attempted Lockpicking" << std::endl;
+			
 				return doors[i].attemptOpen(GetSkill());
+				
 			}
 		}
 	}

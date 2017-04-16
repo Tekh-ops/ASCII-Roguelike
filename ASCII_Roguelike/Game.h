@@ -23,13 +23,13 @@ void RunGame(Map map, Player &player)
 		if (player.GetHealth() > 0){
 			map.printLevel();
 			std::cout << "You are Level " << player.GetLevel() << std::endl;
-			std::cout << "Name: " << name << std::endl;
-			std::cout << "Health: " << player.GetHealth() << std::endl;
-			std::cout << "Defense: " << player.GetDefense() << std::endl;
-			std::cout << "Lockpick Skill : " << player.GetSkill() << std::endl;
-			std::cout << "Amount of Doors: " << doors.size() << std::endl;
+			std::cout << "Name: " << name;
+			std::cout << "  Health: " << player.GetHealth();
+			std::cout << "  Defense: " << player.GetDefense() << std::endl;
+			std::cout << "Lockpick Skill: " << player.GetSkill() << std::endl;
 			std::cout << "XP To Next Level: " << player.GetXpTilNextLevel() << std::endl;
-			std::cout << "\n\n";
+			std::cout << "\nQ to quit game\tT to taunt\n";
+			std::cout << "\n\n\n";
 			input = getch();
 			player.ProcessInput(input, doors, map);
 		}
