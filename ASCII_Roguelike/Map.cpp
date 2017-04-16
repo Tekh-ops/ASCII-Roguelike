@@ -20,7 +20,7 @@ bool Map::LoadMap(std::string path)
 }
 
 // Really more of something that sets positions
-void Map::ProcessLevel(Player &player, std::vector<Door> &doors)
+void Map::ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<GenericActor> &actors)
 {
 	for (int i = 0; i < _levelData.size(); i++)
 	{
@@ -39,6 +39,11 @@ void Map::ProcessLevel(Player &player, std::vector<Door> &doors)
 			if (_levelData[i][j] == 'X')
 			{
 				doors.push_back(Door(15, j, i));
+			}
+			// 'T' Actor
+			if (_levelData[i][j] == 'T')
+			{
+				actors.push_back(GenericActor(100, 0, false, 35, j, i));
 			}
 		}
 	}

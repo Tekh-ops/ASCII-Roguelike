@@ -6,6 +6,7 @@
 #include "common.h"
 #include <iostream>
 #include "Door.h"
+#include "GenericActor.h"
 class Player;
 //class Door;
 class Map
@@ -15,7 +16,7 @@ public:
 	bool LoadMap(std::string path);
 	const char GetTile(int x, int y);
 	void SetTile(const char tile, int x, int y);
-	void ProcessLevel(Player &player, std::vector<Door> &doors);
+	void ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<GenericActor> &actors);
 	void printLevel();
 private:
 	std::vector<std::string> _levelData;

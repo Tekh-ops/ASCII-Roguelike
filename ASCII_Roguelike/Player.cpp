@@ -6,9 +6,10 @@ Player::Player()
 
 }
 
-Player::Player(int defense, int health, int lockpick) :
-_def(defense), _hp(health), _lockPick(lockpick)
+Player::Player(int defense, int health, int lockpick, int attack) :
+_def(defense), _hp(health), _lockPick(lockpick), _attack(attack)
 {
+	_maxHP = _hp;
 	_xp = 0;
 }
 
@@ -18,7 +19,7 @@ void Player::setPosition(int x, int y)
 	_y = y;
 }
 
-void Player::ProcessInput(char in, std::vector<Door> doors , Map &map)
+void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<GenericActor> actors , Map &map)
 {
 	int targetX, targetY, prevX, prevY;
 	prevX = _x;
@@ -30,7 +31,7 @@ void Player::ProcessInput(char in, std::vector<Door> doors , Map &map)
 	case 'w':
 	case'W':
 		targetY -= 1;
-		if (ProcessMove(map, doors , targetX, targetY))
+		if (ProcessMove(map, doors, actors , targetX, targetY))
 		{
 			map.SetTile('.', prevX, prevY);
 			map.SetTile('@', targetX, targetY);
@@ -40,7 +41,7 @@ void Player::ProcessInput(char in, std::vector<Door> doors , Map &map)
 	case 's':
 	case'S':
 		targetY += 1;
-		if (ProcessMove(map, doors ,targetX, targetY))
+		if (ProcessMove(map, doors, actors ,targetX, targetY))
 		{
 			map.SetTile('.', prevX, prevY);
 			map.SetTile('@', targetX, targetY);
@@ -50,7 +51,7 @@ void Player::ProcessInput(char in, std::vector<Door> doors , Map &map)
 	case 'a':
 	case'A':
 		targetX -= 1;
-		if (ProcessMove(map, doors, targetX, targetY))
+		if (ProcessMove(map, doors, actors ,targetX, targetY))
 		{
 			map.SetTile('.', prevX, prevY);
 			map.SetTile('@', targetX, targetY);
@@ -60,7 +61,7 @@ void Player::ProcessInput(char in, std::vector<Door> doors , Map &map)
 	case 'd':
 	case'D':
 		targetX += 1;
-		if (ProcessMove(map, doors ,targetX, targetY))
+		if (ProcessMove(map, doors, actors ,targetX, targetY))
 		{
 			map.SetTile('.', prevX, prevY);
 			map.SetTile('@', targetX, targetY);
@@ -85,7 +86,7 @@ void Player::ProcessInput(char in, std::vector<Door> doors , Map &map)
 	}
 }
 
-bool Player::ProcessMove(Map &map, std::vector<Door> doors, int targetX, int targetY)
+bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<GenericActor> actors, int targetX, int targetY)
 {
 	if ((map.GetTile(targetX, targetY) == '#'))
     {
@@ -98,17 +99,36 @@ bool Player::ProcessMove(Map &map, std::vector<Door> doors, int targetX, int tar
 		{
 			if (doors[i].getX() == targetX && doors[i].getY() == targetY)
 			{
-				std::cout << "Attempted Lockpicking" << std::endl;
-			
-				return doors[i].attemptOpen(GetSkill());
-				
+				if (doors[i].attemptOpen(GetSkill()) == true)
+				{
+					std::cout << "Lockpicking Success!" << std::endl;
+					doors.erase(doors.begin() + i);
+					return true;
+				}
+				else
+				{
+					std::cout << "Lockpick failed..." << std::endl;
+					return false;
+				}
 			}
 		}
 	}
 	if (map.GetTile(targetX, targetY) == '>' || map.GetTile(targetX, targetY) == '<')
 	{
-		_hp -= 20;
+		TakeDamage(20);
 		std::cout << "You ran into a trap... Good Job" << std::endl;
+		return false;
+	}
+	// XP BOOST TEMP
+	if (map.GetTile(targetX, targetY) == 'I')
+	{
+		AddXP(20);
+		std::cout << "You have gained 20 xp" << std::endl;
+	}
+	// Actor
+	if (map.GetTile(targetX, targetY) == 'T')
+	{
+		std::cout << "You bumped into a man" << std::endl;
 		return false;
 	}
 	return true;

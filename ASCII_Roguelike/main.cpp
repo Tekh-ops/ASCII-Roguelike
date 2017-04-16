@@ -2,7 +2,7 @@
 int main()
 {
 	Map map;
-	Player player(15, 100, 5);
+	Player player(15, 100, 5, 15);
 	map.LoadMap("levels\\level1.txt");
 	RunGame(map, player);
 	return 0;
