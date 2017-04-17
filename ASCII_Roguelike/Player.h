@@ -11,8 +11,8 @@ public:
 	Player();
 	Player(int defense, int health, int lockpick, int attack); // Inital
 	void setPosition(int x, int y);
-	void ProcessInput(char in, std::vector<Door> &doors, std::vector<GenericActor> actors , Map &map);
-	bool ProcessMove(Map &map, std::vector<Door> &doors, std::vector<GenericActor> actors, int targetX, int targetY);
+	void ProcessInput(char in, std::vector<Door> &doors, std::vector<GenericActor> actors , Map &map, int &lvl);
+	bool ProcessMove(Map &map, std::vector<Door> &doors, std::vector<GenericActor> actors, int targetX, int targetY, int&lvl);
 	bool LevelUp()
 	{
 		if (_xp == _xpReq)

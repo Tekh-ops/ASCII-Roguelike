@@ -19,7 +19,7 @@ void Player::setPosition(int x, int y)
 	_y = y;
 }
 
-void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<GenericActor> actors , Map &map)
+void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<GenericActor> actors , Map &map, int &lvl)
 {
 	int targetX, targetY, prevX, prevY;
 	prevX = _x;
@@ -31,7 +31,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 	case 'w':
 	case'W':
 		targetY -= 1;
-		if (ProcessMove(map, doors, actors , targetX, targetY))
+		if (ProcessMove(map, doors, actors , targetX, targetY, lvl))
 		{
 			map.SetTile('.', prevX, prevY);
 			map.SetTile('@', targetX, targetY);
@@ -41,7 +41,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 	case 's':
 	case'S':
 		targetY += 1;
-		if (ProcessMove(map, doors, actors ,targetX, targetY))
+		if (ProcessMove(map, doors, actors ,targetX, targetY, lvl))
 		{
 			map.SetTile('.', prevX, prevY);
 			map.SetTile('@', targetX, targetY);
@@ -51,7 +51,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 	case 'a':
 	case'A':
 		targetX -= 1;
-		if (ProcessMove(map, doors, actors ,targetX, targetY))
+		if (ProcessMove(map, doors, actors ,targetX, targetY, lvl))
 		{
 			map.SetTile('.', prevX, prevY);
 			map.SetTile('@', targetX, targetY);
@@ -61,7 +61,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 	case 'd':
 	case'D':
 		targetX += 1;
-		if (ProcessMove(map, doors, actors ,targetX, targetY))
+		if (ProcessMove(map, doors, actors ,targetX, targetY,lvl))
 		{
 			map.SetTile('.', prevX, prevY);
 			map.SetTile('@', targetX, targetY);
@@ -86,7 +86,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 	}
 }
 
-bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<GenericActor> actors, int targetX, int targetY)
+bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<GenericActor> actors, int targetX, int targetY, int &lvl)
 {
 	if ((map.GetTile(targetX, targetY) == '#'))
     {
@@ -129,6 +129,18 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 	if (map.GetTile(targetX, targetY) == 'T')
 	{
 		std::cout << "You bumped into a man" << std::endl;
+		return false;
+	}
+	if (map.GetTile(targetX, targetY) == 'a')
+	{
+		std::cout << "Place holder for previous level" << std::endl;
+		lvl--;
+		return false;
+	}
+	if (map.GetTile(targetX, targetY) == 'd')
+	{
+		std::cout << "Place holder for next level" << std::endl;
+		lvl++;
 		return false;
 	}
 	return true;

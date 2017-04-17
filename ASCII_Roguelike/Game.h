@@ -3,11 +3,12 @@
 #include "Player.h"
 #include <conio.h>
 
-void RunGame(Map map, Player &player)
+void RunGame(Map map[], Player &player)
 {
 	bool run = true; 
 	bool LevelLoaded = false;
 	char input;
+	int currentLevel = 2;
 	std::vector<Door> doors;
 	std::vector<GenericActor> actors;
 	std::string name;
@@ -18,11 +19,12 @@ void RunGame(Map map, Player &player)
 	while (run)
 	{
 		if (LevelLoaded != true){
-			map.ProcessLevel(player, doors, actors);
+			map[currentLevel-1].ProcessLevel(player, doors, actors);
+			// Clear the vectors before
 			LevelLoaded = true;
 		}
 		if (player.GetHealth() > 0){
-			map.printLevel();
+			map[currentLevel-1].printLevel();
 			std::cout << "You are Level " << player.GetLevel() << std::endl;
 			std::cout << "Name: " << name;
 			std::cout << "  Health: " << player.GetHealth() << " \\ " << player.GetMaxHP() ;
@@ -35,11 +37,20 @@ void RunGame(Map map, Player &player)
 			std::cout << "\n\n\n";
 			input = getch();
 			player.LevelUp();
-			player.ProcessInput(input, doors, actors ,map);
+			int prev = currentLevel;
+			player.ProcessInput(input, doors, actors ,map[currentLevel-1], currentLevel);
+			if (prev != currentLevel)
+			{
+				LevelLoaded = false;
+					for (int i = 0; i < doors.size(); i++)
+						doors.erase(doors.begin() + i);
+					for (int i = 0; i < actors.size(); i++)
+						actors.erase(actors.begin() + i);
+			}
 			for (int i = 0; i < actors.size(); i++)
 			{
-				actors[i].AI_Loop(map);
-				if (actors[i].isDead(map))
+				actors[i].AI_Loop(map[currentLevel-1]);
+				if (actors[i].isDead(map[currentLevel-1]))
 					actors.erase(actors.begin() + i);
 			}
 		}

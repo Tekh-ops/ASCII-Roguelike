@@ -1,10 +1,16 @@
-﻿Build started 4/17/2017 1:40:32 PM.
+﻿Build started 4/17/2017 1:55:52 PM.
      1>Project "C:\Users\Random\Desktop\ASCII_Roguelike\ASCII_Roguelike\ASCII_Roguelike.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GenericActor.cpp
-         GenericActor.cpp
-     1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\genericactor.cpp(64): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\genericactor.cpp(60): warning C4715: 'GenericActor::processMove' : not all control paths return a value
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Player.cpp main.cpp
+         main.cpp
+     1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\game.h(38): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _getch. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\conio.h(131) : see declaration of 'getch'
+     1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\game.h(45): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\game.h(47): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\game.h(50): warning C4018: '<' : signed/unsigned mismatch
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         Player.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Random\Desktop\ASCII_Roguelike\Debug\ASCII_Roguelike.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Random\Desktop\ASCII_Roguelike\Debug\ASCII_Roguelike.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Random\Desktop\ASCII_Roguelike\Debug\ASCII_Roguelike.lib" /MACHINE:X86 Debug\Door.obj
          Debug\GenericActor.obj
@@ -16,4 +22,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.70
+Time Elapsed 00:00:00.78

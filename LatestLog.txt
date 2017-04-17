@@ -1,3 +1,9 @@
+commit 551bd6f056ed695d05bd298573b5c2efd72ca458
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Mon Apr 17 13:41:22 2017 -0400
+
+    Modified Actor AI slightly. Now more active
+
 commit d75258fbafac5da7e4e9e675e363fc751cde72d6
 Author: Xpost2000 <xpost2000cod@gmail.com>
 Date:   Sun Apr 16 18:08:39 2017 -0400
