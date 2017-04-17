@@ -9,7 +9,7 @@ void RunGame(Map map[], Player &player)
 	bool run = true; 
 	bool LevelLoaded = false;
 	char input;
-	int currentLevel = 1;
+	int currentLevel = 2; // This is the hamlet
 	std::vector<Door> doors;
 	std::vector<GenericActor> actors;
 	std::vector<Enemy> enemies;

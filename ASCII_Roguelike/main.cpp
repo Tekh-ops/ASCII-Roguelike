@@ -1,9 +1,10 @@
 #include "Game.h"
 
-const int amt = 5;
+const int amt = 6;
 
 std::string lvlList[amt][2] =
 {
+	{"levels\\forest.txt","Forest Of Wild"},
 	{ "levels\\hamlet.txt", "Friendly Hamlet"},
 	{"levels\\level1.txt", "Privateer's Hold"},
 	{"levels\\level2.txt", "Crimson Passage"},
