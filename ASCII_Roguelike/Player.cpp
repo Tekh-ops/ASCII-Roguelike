@@ -129,6 +129,8 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 	if (map.GetTile(targetX, targetY) == 'h')
 	{
 		_hp += 20;
+		if (_hp > _maxHP)
+			_hp = _maxHP;
 		std::cout << "You have been healed slightly.\n";
 	}
 	// Actor

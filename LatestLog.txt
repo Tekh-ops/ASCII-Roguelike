@@ -1,3 +1,11 @@
+commit a217268a5e705ab2cc2b65b1906018399c40d271
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Mon Apr 17 17:22:33 2017 -0400
+
+    Added Enemies!
+    
+    Now this is ridiculously hard with the way the AI was made.
+
 commit 2b969c387f12167c77b8d50de7d72526afaeddb0
 Author: Xpost2000 <xpost2000cod@gmail.com>
 Date:   Mon Apr 17 15:16:52 2017 -0400
