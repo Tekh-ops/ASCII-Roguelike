@@ -2,6 +2,7 @@
 #include <vector>
 #include "Player.h"
 #include <conio.h>
+#include "Enemy.h"
 
 void RunGame(Map map[], Player &player)
 {
@@ -11,6 +12,7 @@ void RunGame(Map map[], Player &player)
 	int currentLevel = 1;
 	std::vector<Door> doors;
 	std::vector<GenericActor> actors;
+	std::vector<Enemy> enemies;
 	std::string name;
 	std::cout << "Before we proceed, your name?" << std::endl;
 	std::cin >> name;
@@ -19,12 +21,12 @@ void RunGame(Map map[], Player &player)
 	while (run)
 	{
 		if (LevelLoaded != true){
-			map[currentLevel-1].ProcessLevel(player, doors, actors);
+			map[currentLevel-1].ProcessLevel(player, doors, actors, enemies);
 			// Clear the vectors before
 			LevelLoaded = true;
 		}
 		if (player.GetHealth() > 0){
-			std::cout << "THE SEEDS OF DOUBT" << std::endl;
+			std::cout << "\n\n";
 			std::cout << "| " << map[currentLevel - 1].getName() << " | " << std::endl;
 			std::cout << "------------------" << std::endl;
 			map[currentLevel-1].printLevel();
@@ -35,27 +37,32 @@ void RunGame(Map map[], Player &player)
 			std::cout << "  Attack Power: " << player.GetAttack() << std::endl;
 			std::cout << "Lockpick Skill: " << player.GetSkill() << std::endl;
 			std::cout << "XP To Next Level: " << player.GetXP() << " \\ " << player.GetXpTilNextLevel() << std::endl;
-			std::cout << "There are " << actors.size() << " NPCs " << "| There are " << doors.size() << " Doors Locked" << std::endl;
 			std::cout << "\nQ to quit game\tT to taunt\n";
-			std::cout << "\n\n\n";
 			input = getch();
 			player.LevelUp();
 			int prev = currentLevel;
-			player.ProcessInput(input, doors, actors ,map[currentLevel-1], currentLevel);
+			player.ProcessInput(input, doors, actors, enemies ,map[currentLevel-1], currentLevel);
 			if (prev != currentLevel)
 			{
 				if (doors.size() > 0)
 					doors.clear();
 				if (actors.size() > 0)
 					actors.clear();
-
-				map[currentLevel - 1].ProcessLevel(player, doors, actors);
+				if (enemies.size() > 0)
+					enemies.clear();
+				map[currentLevel - 1].ProcessLevel(player, doors, actors, enemies);
 			}
 			for (int i = 0; i < actors.size(); i++)
 			{
 				actors[i].AI_Loop(map[currentLevel-1]);
 				if (actors[i].isDead(map[currentLevel-1]))
 					actors.erase(actors.begin() + i);
+			}
+			for (int i = 0; i < enemies.size(); i++)
+			{
+				enemies[i].AI_Loop(map[currentLevel-1],player, actors, input);
+				if (enemies[i].isDead(map[currentLevel - 1], player))
+					enemies.erase(enemies.begin() + i);
 			}
 		}
 		else

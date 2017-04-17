@@ -4,13 +4,15 @@
 
 std::string dialogue[]
 {
-		"Do you have buisness with me?\n",
+	"Do you have buisness with me?\n",
 		"Excuse me!\n",
 		"Hey!\n",
 		"Hello sir! :)\n",
 		"Hello adventurer!\n",
 		"This town is quite boring...\n",
 		"Hmmm.... Hmm...\n",
+		"I think it's pretty dumb we don't have a shop.\n",
+		"....\n",
 		"This dungeon nearby is quite dangerous\n"
 };
 

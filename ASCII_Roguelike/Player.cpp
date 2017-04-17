@@ -1,13 +1,14 @@
 #include "Player.h"
 #include <time.h>
+#include "Enemy.h"
 std::string msgs[4] = { "This game sucks", "I'm bored", "I should play MGS:V", "Bored..." };
 Player::Player()
 {
 
 }
 
-Player::Player(int defense, int health, int lockpick, int attack) :
-_def(defense), _hp(health), _lockPick(lockpick), _attack(attack)
+Player::Player(int defense, int health, int lockpick, int attack, int skill) :
+_def(defense), _hp(health), _lockPick(lockpick), _attack(attack), _skill(skill)
 {
 	_maxHP = _hp;
 	_xp = 0;
@@ -19,7 +20,7 @@ void Player::setPosition(int x, int y)
 	_y = y;
 }
 
-void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<GenericActor> actors , Map &map, int &lvl)
+void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemy , Map &map, int &lvl)
 {
 	int targetX, targetY, prevX, prevY;
 	prevX = _x;
@@ -31,7 +32,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 	case 'w':
 	case'W':
 		targetY -= 1;
-		if (ProcessMove(map, doors, actors , targetX, targetY, lvl))
+		if (ProcessMove(map, doors, actors , enemy ,targetX, targetY, lvl))
 		{
 			map.SetTile('.', prevX, prevY);
 			map.SetTile('@', targetX, targetY);
@@ -41,7 +42,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 	case 's':
 	case'S':
 		targetY += 1;
-		if (ProcessMove(map, doors, actors ,targetX, targetY, lvl))
+		if (ProcessMove(map, doors, actors, enemy ,targetX, targetY, lvl))
 		{
 			map.SetTile('.', prevX, prevY);
 			map.SetTile('@', targetX, targetY);
@@ -51,7 +52,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 	case 'a':
 	case'A':
 		targetX -= 1;
-		if (ProcessMove(map, doors, actors ,targetX, targetY, lvl))
+		if (ProcessMove(map, doors, actors, enemy ,targetX, targetY, lvl))
 		{
 			map.SetTile('.', prevX, prevY);
 			map.SetTile('@', targetX, targetY);
@@ -61,7 +62,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 	case 'd':
 	case'D':
 		targetX += 1;
-		if (ProcessMove(map, doors, actors ,targetX, targetY,lvl))
+		if (ProcessMove(map, doors, actors, enemy ,targetX, targetY,lvl))
 		{
 			map.SetTile('.', prevX, prevY);
 			map.SetTile('@', targetX, targetY);
@@ -86,7 +87,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 	}
 }
 
-bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<GenericActor> actors, int targetX, int targetY, int &lvl)
+bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemy ,int targetX, int targetY, int &lvl)
 {
 	if ((map.GetTile(targetX, targetY) == '#'))
     {
@@ -125,6 +126,11 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 		AddXP(20);
 		std::cout << "You have gained 20 xp" << std::endl;
 	}
+	if (map.GetTile(targetX, targetY) == 'h')
+	{
+		_hp += 20;
+		std::cout << "You have been healed slightly.\n";
+	}
 	// Actor
 	if (map.GetTile(targetX, targetY) == 'T')
 	{
@@ -149,6 +155,28 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 		map.SetVisited(true);
 		map.EnteredViaRight(true);
 		lvl++;
+		return false;
+	}
+	if (map.GetTile(targetX, targetY) == 'g')
+	{
+		for (int i = 0; i < enemy.size(); i++)
+		{
+			if (enemy[i].GetX() == targetX && enemy[i].GetY() == targetY)
+			{
+				enemy[i].EngageBattle(*this, targetX, targetY);
+			}
+		}
+		return false;
+	}
+	if (map.GetTile(targetX, targetY) == 'G')
+	{
+		for (int i = 0; i < enemy.size(); i++)
+		{
+			if (enemy[i].GetX() == targetX && enemy[i].GetY() == targetY)
+			{
+				enemy[i].EngageBattle(*this, targetX, targetY);
+			}
+		}
 		return false;
 	}
 	return true;

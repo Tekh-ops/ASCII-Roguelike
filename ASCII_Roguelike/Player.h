@@ -5,24 +5,25 @@
 #include "GenericActor.h"
 class Map;
 class Door;
+class Enemy;
 class Player
 {
 public:
 	Player();
-	Player(int defense, int health, int lockpick, int attack); // Inital
+	Player(int defense, int health, int lockpick, int attack, int skill); // Inital
 	void setPosition(int x, int y);
-	void ProcessInput(char in, std::vector<Door> &doors, std::vector<GenericActor> actors , Map &map, int &lvl);
-	bool ProcessMove(Map &map, std::vector<Door> &doors, std::vector<GenericActor> actors, int targetX, int targetY, int&lvl);
+	void ProcessInput(char in, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemy , Map &map, int &lvl);
+	bool ProcessMove(Map &map, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemy,int targetX, int targetY, int&lvl);
 	bool LevelUp()
 	{
-		if (_xp == _xpReq)
+		if (_xp >= _xpReq)
 		{
 			_def += 5;
-			_maxHP += 30;
-			_hp = _maxHP;
+			_maxHP += 10;
 			_lockPick += 2;
 			_xp = 0;
 			_xpReq += 20;
+			_skill += 2;
 			_level++;
 			std::cout << "Leveled Up!" << std::endl;
 			return true;
@@ -54,6 +55,7 @@ private:
 	int _attack;
 	int _lockPick;
 	int _level = 1;
+	int _skill;
 };
 
 #endif

@@ -1,5 +1,5 @@
 #include "Map.h"
-
+#include "Enemy.h"
 std::string names[] =
 {
 	"Harax Loren",
@@ -32,7 +32,7 @@ bool Map::LoadMap(std::string path)
 }
 
 // Really more of something that sets positions
-void Map::ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<GenericActor> &actors)
+void Map::ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemies)
 {
 	for (int i = 0; i < _levelData.size(); i++)
 	{
@@ -57,6 +57,15 @@ void Map::ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<Gen
 			{
 				actors.push_back(GenericActor(100, 0, false, 35, j, i, j*i - j, names[a]));
 				a++;
+			}
+			// Goblin
+			if (_levelData[i][j] == 'g')
+			{
+				enemies.push_back(Enemy(30, 25, 20, j, i, j*i - j + 1, "Goblin", 'g', 20, 11));
+			}
+			if (_levelData[i][j] == 'G')
+			{
+				enemies.push_back(Enemy(70, 35, 250, j, i, j*i - 3, "Gorbalt The Cruel", 'G', 45, 25));
 			}
 		}
 	}
