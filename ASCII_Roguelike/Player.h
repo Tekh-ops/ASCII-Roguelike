@@ -11,6 +11,7 @@ class Player
 public:
 	Player();
 	Player(int defense, int health, int lockpick, int attack, int skill); // Inital
+	std::string whoKilledMe(Enemy enemy, std::string str);
 	void setPosition(int x, int y);
 	void ProcessInput(char in, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemy , Map &map, int &lvl);
 	bool ProcessMove(Map &map, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemy,int targetX, int targetY, int&lvl);

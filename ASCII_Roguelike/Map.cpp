@@ -58,6 +58,12 @@ void Map::ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<Gen
 				actors.push_back(GenericActor(100, 0, false, 35, j, i, j*i - j, names[a]));
 				a++;
 			}
+			/*
+			Enemies are structured like this
+			lowercase = normal
+			uppercase = named boss
+			*/
+
 			// Goblin
 			if (_levelData[i][j] == 'g')
 			{
@@ -65,7 +71,25 @@ void Map::ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<Gen
 			}
 			if (_levelData[i][j] == 'G')
 			{
-				enemies.push_back(Enemy(70, 35, 250, j, i, j*i - 3, "Gorbalt The Cruel", 'G', 45, 25));
+				enemies.push_back(Enemy(70, 35, 250, j, i, j*i - 3, "Gorbalt The Cruel", 'G', 30, 25));
+			}
+			// Rat
+			if (_levelData[i][j] == 'r')
+			{
+				enemies.push_back(Enemy(15, 2, 5, j, i, j*i - j + 2, "Rat", 'r', 15, 5));
+			}
+			if (_levelData[i][j] == 'R')
+			{
+				enemies.push_back(Enemy(55, 15, 200, j, i, j*i - 2, "King Of Rats", 'R', 25, 30));
+			}
+			// Snake
+			if (_levelData[i][j] == 's')
+			{
+				enemies.push_back(Enemy(15, 15, 10, j, i, j*i - j + 3, "Viper", 's', 30, 10));
+			}
+			if (_levelData[i][j] == 'S')
+			{
+				enemies.push_back(Enemy(60, 35, 300, j, i, j*i - 4, "Lord Of Schemes", 'S', 30, 30));
 			}
 		}
 	}

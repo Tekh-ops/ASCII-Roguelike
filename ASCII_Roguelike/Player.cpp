@@ -133,6 +133,11 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 			_hp = _maxHP;
 		std::cout << "You have been healed slightly.\n";
 	}
+	if (map.GetTile(targetX, targetY) == 'H')
+	{
+		_hp = GetMaxHP();
+		std::cout << "You have been refreshed heavily.\n";
+	}
 	// Actor
 	if (map.GetTile(targetX, targetY) == 'T')
 	{
@@ -159,18 +164,7 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 		lvl++;
 		return false;
 	}
-	if (map.GetTile(targetX, targetY) == 'g')
-	{
-		for (int i = 0; i < enemy.size(); i++)
-		{
-			if (enemy[i].GetX() == targetX && enemy[i].GetY() == targetY)
-			{
-				enemy[i].EngageBattle(*this, targetX, targetY);
-			}
-		}
-		return false;
-	}
-	if (map.GetTile(targetX, targetY) == 'G')
+	if (map.GetTile(targetX, targetY) == 'g' || map.GetTile(targetX, targetY) == 'G' || map.GetTile(targetX, targetY) == 's' || map.GetTile(targetX, targetY) == 'S' || map.GetTile(targetX, targetY) == 'r' || map.GetTile(targetX, targetY) == 'R')
 	{
 		for (int i = 0; i < enemy.size(); i++)
 		{
@@ -182,4 +176,10 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 		return false;
 	}
 	return true;
+}
+
+std::string Player::whoKilledMe(Enemy enemy, std::string str)
+{
+	str = enemy.getName();
+	return str;
 }

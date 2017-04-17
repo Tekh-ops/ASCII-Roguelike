@@ -92,21 +92,28 @@ bool Enemy::EngageBattle(Player &player, int targetX, int targetY)
 	std::mt19937 mt_rand(time(0) % _skill);
 	auto diceRoll = std::bind(std::uniform_int_distribution<int>(1, 3), std::mt19937(mt_rand));
 	auto p_diceRoll = std::bind(std::uniform_int_distribution<int>(0, 6), std::mt19937(mt_rant_p));
+	int prevHealth = _hp;
+	int prevPlayerHP = player.GetHealth();
+	std::mt19937 mt_ran(time(0) % _skill + 50);
+	std::mt19937 mt_rane(time(0) % player.GetSkill() % 25);
+	auto diceRoll_A = std::bind(std::uniform_int_distribution<int>(1, _attack), std::mt19937(mt_ran));
+	auto diceRoll_pA = std::bind(std::uniform_int_distribution<int>(1, player.GetAttack()), std::mt19937(mt_rane));
 	if (diceRoll() > p_diceRoll())
 	{
-		player.TakeDamage(_attack);
-		std::cout << _name << " has dealt " << _attack - player.GetDefense() % 2<< " to you. (You missed)" << std::endl;
+		player.TakeDamage(diceRoll_A());
+		std::cout << _name << " has dealt " << prevPlayerHP - player.GetHealth() << " to you. (You missed)" << std::endl;
+		prevPlayerHP = player.GetHealth();
 	}
 	else if (p_diceRoll() > diceRoll())
 	{
-		TakeDamage(player.GetAttack());
-		std::cout << "You do " << player.GetAttack() - _def % 2 << " damage to " << _name << "\n";
-		std::cout << _name << " has " << _hp << " health left\n";
+		TakeDamage(diceRoll_pA());
+		std::cout << "You do " << prevHealth - _hp << " damage to " << _name << "\n";
+		prevHealth = _hp;
 	}
 	else if (p_diceRoll() == diceRoll())
 	{
-		TakeDamage(player.GetAttack());
-		player.TakeDamage(_attack);
+		TakeDamage(diceRoll_pA());
+		player.TakeDamage(diceRoll_A());
 		std::cout << "Both you and the " << _name << " Get hit by each other.\n";
 	}
 	return true;

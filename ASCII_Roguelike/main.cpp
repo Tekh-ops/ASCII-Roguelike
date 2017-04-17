@@ -8,7 +8,7 @@ std::string lvlList[amt][2] =
 	{"levels\\level1.txt", "Privateer's Hold"},
 	{"levels\\level2.txt", "Crimson Passage"},
 	{"levels\\level3.txt", "Chamber of Misfortune"},
-	{ "levels\\level4.txt", "The End" }
+	{ "levels\\level4.txt", "Chamber of Everlasting Schemes" }
 };
 
 int main()

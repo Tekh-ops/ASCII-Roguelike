@@ -69,9 +69,12 @@ void RunGame(Map map[], Player &player)
 		{
 			std::cout << "\n\n\n\n\n\n\n\n\n\n";
 			std::cout << "Farewell, " << name << " Your legacy will be remembered." << std::endl;
+			
 			std::ofstream rip(name + "'s legacy.txt");
 			rip << name << " Was Level " << player.GetLevel() << " Upon death" << std::endl;
 			rip << "You were remembered as a hero" << std::endl;
+			rip << "But was slain on his journey for the quest item or something.\n";
+			rip << "He bore no noteworthy accomplishments obviously." << std::endl;
 			run = false;
 		}
 	}
