@@ -134,12 +134,16 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 	if (map.GetTile(targetX, targetY) == 'a')
 	{
 		std::cout << "Place holder for previous level" << std::endl;
+		map.SetVisited(true);
+		map.EnteredViaLeft(true);
 		lvl--;
 		return false;
 	}
 	if (map.GetTile(targetX, targetY) == 'd')
 	{
 		std::cout << "Place holder for next level" << std::endl;
+		map.SetVisited(true);
+		map.EnteredViaRight(true);
 		lvl++;
 		return false;
 	}

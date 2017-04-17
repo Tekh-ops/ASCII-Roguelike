@@ -8,7 +8,7 @@ void RunGame(Map map[], Player &player)
 	bool run = true; 
 	bool LevelLoaded = false;
 	char input;
-	int currentLevel = 2;
+	int currentLevel = 1;
 	std::vector<Door> doors;
 	std::vector<GenericActor> actors;
 	std::string name;
@@ -27,6 +27,8 @@ void RunGame(Map map[], Player &player)
 			map[currentLevel-1].printLevel();
 			std::cout << "You are Level " << player.GetLevel() << std::endl;
 			std::cout << "Name: " << name;
+			std::cout << "X : "<< player.GetX();
+			std::cout << "  Y : "<< player.GetY()<< std::endl;
 			std::cout << "  Health: " << player.GetHealth() << " \\ " << player.GetMaxHP() ;
 			std::cout << "  Defense: " << player.GetDefense();
 			std::cout << "  Attack Power: " << player.GetAttack() << std::endl;
@@ -41,11 +43,12 @@ void RunGame(Map map[], Player &player)
 			player.ProcessInput(input, doors, actors ,map[currentLevel-1], currentLevel);
 			if (prev != currentLevel)
 			{
-				LevelLoaded = false;
-					for (int i = 0; i < doors.size(); i++)
-						doors.erase(doors.begin() + i);
-					for (int i = 0; i < actors.size(); i++)
-						actors.erase(actors.begin() + i);
+				if (doors.size() > 0)
+					doors.clear();
+				if (actors.size() > 0)
+					actors.clear();
+
+				map[currentLevel - 1].ProcessLevel(player, doors, actors);
 			}
 			for (int i = 0; i < actors.size(); i++)
 			{

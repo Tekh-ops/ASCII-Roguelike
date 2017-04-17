@@ -18,7 +18,13 @@ public:
 	void SetTile(const char tile, int x, int y);
 	void ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<GenericActor> &actors);
 	void printLevel();
+	void SetVisited(bool visited) { _visited = visited; }
+	void EnteredViaRight(bool flag) { _rightEntered = flag; }
+	void EnteredViaLeft(bool flag) { _leftEntered = flag; }
 private:
+	bool _visited = false;
+	bool _leftEntered = false;
+	bool _rightEntered = false;
 	std::vector<std::string> _levelData;
 };
 

@@ -40,6 +40,8 @@ public:
 	inline int GetLevel() { return _level; }
 	inline int GetAttack() { return _attack;  }
 	inline int GetXP() { return _xp; }
+	inline int GetX() { return _x; }
+	inline int GetY() { return _y; }
 	void TakeDamage(int val) { _hp -= val - _def % 2; }
 		inline int GetDefense() {
 		return _def;

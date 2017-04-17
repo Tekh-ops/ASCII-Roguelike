@@ -28,7 +28,7 @@ void Map::ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<Gen
 		{
 			if (_levelData[i][j] == '@')
 			{
-				player.setPosition(j, i);
+					player.setPosition(j, i);
 			}
 			// Low level door
 			if (_levelData[i][j] == '|' || _levelData[i][j] == '-')
@@ -43,11 +43,12 @@ void Map::ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<Gen
 			// 'T' Actor
 			if (_levelData[i][j] == 'T')
 			{
-				actors.push_back(GenericActor(100, 0, false, 35, j, i, j*i-j));
+				actors.push_back(GenericActor(100, 0, false, 35, j, i, j*i - j));
 			}
 		}
 	}
 }
+		
 
 // Recieve a tile from the map
 const char Map::GetTile(int x, int y)
