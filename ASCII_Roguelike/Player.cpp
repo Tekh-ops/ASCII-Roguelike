@@ -128,12 +128,17 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 	// Actor
 	if (map.GetTile(targetX, targetY) == 'T')
 	{
-		std::cout << "You bumped into a man" << std::endl;
+		for (int i = 0; i < actors.size(); i++)
+		{
+			if (targetX == actors[i].GetX() && targetY == actors[i].GetY())
+			{
+				std::cout<< actors[i].getName() << " : " <<actors[i].getResponse();
+			}
+		}
 		return false;
 	}
 	if (map.GetTile(targetX, targetY) == 'a')
 	{
-		std::cout << "Place holder for previous level" << std::endl;
 		map.SetVisited(true);
 		map.EnteredViaLeft(true);
 		lvl--;
@@ -141,7 +146,6 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 	}
 	if (map.GetTile(targetX, targetY) == 'd')
 	{
-		std::cout << "Place holder for next level" << std::endl;
 		map.SetVisited(true);
 		map.EnteredViaRight(true);
 		lvl++;

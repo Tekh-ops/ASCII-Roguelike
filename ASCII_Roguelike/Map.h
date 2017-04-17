@@ -13,6 +13,7 @@ class Map
 {
 public:
 	Map();
+	Map(std::string level) : _name(level){}
 	bool LoadMap(std::string path);
 	const char GetTile(int x, int y);
 	void SetTile(const char tile, int x, int y);
@@ -21,11 +22,17 @@ public:
 	void SetVisited(bool visited) { _visited = visited; }
 	void EnteredViaRight(bool flag) { _rightEntered = flag; }
 	void EnteredViaLeft(bool flag) { _leftEntered = flag; }
+	void setName(std::string nameOfLevel)
+	{
+		_name = nameOfLevel;
+	}
+	const char* getName() { return _name.c_str(); }
 private:
 	bool _visited = false;
 	bool _leftEntered = false;
 	bool _rightEntered = false;
 	std::vector<std::string> _levelData;
+	std::string _name;
 };
 
 #endif

@@ -24,11 +24,12 @@ void RunGame(Map map[], Player &player)
 			LevelLoaded = true;
 		}
 		if (player.GetHealth() > 0){
+			std::cout << "THE SEEDS OF DOUBT" << std::endl;
+			std::cout << "| " << map[currentLevel - 1].getName() << " | " << std::endl;
+			std::cout << "------------------" << std::endl;
 			map[currentLevel-1].printLevel();
 			std::cout << "You are Level " << player.GetLevel() << std::endl;
 			std::cout << "Name: " << name;
-			std::cout << "X : "<< player.GetX();
-			std::cout << "  Y : "<< player.GetY()<< std::endl;
 			std::cout << "  Health: " << player.GetHealth() << " \\ " << player.GetMaxHP() ;
 			std::cout << "  Defense: " << player.GetDefense();
 			std::cout << "  Attack Power: " << player.GetAttack() << std::endl;

@@ -1,3 +1,9 @@
+commit eccbaace5b2346a5c62d03a0fecb7e4a935e2333
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Mon Apr 17 14:42:16 2017 -0400
+
+    Improved Level Crossing. Fixed bug.
+
 commit 9036c8346575eeed05c7a48de43df27a45b7b0b4
 Author: Xpost2000 <xpost2000cod@gmail.com>
 Date:   Mon Apr 17 13:57:05 2017 -0400

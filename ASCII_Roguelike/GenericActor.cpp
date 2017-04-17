@@ -1,10 +1,36 @@
 #include "GenericActor.h"
 #include "Map.h"
 #include <time.h>
-GenericActor::GenericActor(int hp, int defense, bool killable, int xpGain, int x, int y, int id) :
-_hp(hp), _def(defense), _Killable(killable), _xpGain(xpGain)
-, _x(x), _y(y), _id(id)
+
+std::string dialogue[]
 {
+		"Do you have buisness with me?\n",
+		"Excuse me!\n",
+		"Hey!\n",
+		"Hello sir! :)\n",
+		"Hello adventurer!\n",
+		"This town is quite boring...\n",
+		"Hmmm.... Hmm...\n",
+		"This dungeon nearby is quite dangerous\n"
+};
+
+GenericActor::GenericActor(int hp, int defense, bool killable, int xpGain, int x, int y, int id, std::string name) :
+_hp(hp), _def(defense), _Killable(killable), _xpGain(xpGain)
+, _x(x), _y(y), _id(id), _name(name)
+{
+}
+
+const char* GenericActor::getResponse()
+{
+	std::mt19937 mt_rand(time(0)+1);
+	auto diceRoll = std::bind(std::uniform_int_distribution<int>(0, 7), std::mt19937(mt_rand));
+
+	return dialogue[diceRoll()].c_str();
+}
+
+const char* GenericActor::getName()
+{
+	return _name.c_str();
 }
 
 bool GenericActor::MoveX(Map &map, int targetX)
