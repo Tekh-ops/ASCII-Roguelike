@@ -43,7 +43,7 @@ void Map::ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<Gen
 			// 'T' Actor
 			if (_levelData[i][j] == 'T')
 			{
-				actors.push_back(GenericActor(100, 0, false, 35, j, i));
+				actors.push_back(GenericActor(100, 0, false, 35, j, i, j*i-j));
 			}
 		}
 	}

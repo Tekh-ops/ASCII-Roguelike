@@ -1,3 +1,15 @@
+commit d75258fbafac5da7e4e9e675e363fc751cde72d6
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Sun Apr 16 18:08:39 2017 -0400
+
+    Level facelift
+
+commit 1f075e46ba707e0ab3da2463d8fdaa1ea7538e35
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Sun Apr 16 15:57:43 2017 -0400
+
+    Added an Actor/NPC class. Working as intended
+
 commit 4de6837eda929b5ec9db7cdb50bba3da8754a072
 Author: Xpost2000 <xpost2000cod@gmail.com>
 Date:   Sat Apr 15 22:38:37 2017 -0400

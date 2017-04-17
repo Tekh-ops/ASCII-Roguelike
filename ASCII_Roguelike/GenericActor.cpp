@@ -1,28 +1,38 @@
 #include "GenericActor.h"
 #include "Map.h"
 #include <time.h>
-GenericActor::GenericActor(int hp, int defense, bool killable, int xpGain, int x, int y) :
+GenericActor::GenericActor(int hp, int defense, bool killable, int xpGain, int x, int y, int id) :
 _hp(hp), _def(defense), _Killable(killable), _xpGain(xpGain)
-, _x(x), _y(y)
+, _x(x), _y(y), _id(id)
 {
 }
 
-void GenericActor::MoveX(Map &map, int targetX)
+bool GenericActor::MoveX(Map &map, int targetX)
 {
 	if (processMove(map, targetX, _y))
 	{
 		map.SetTile('.', _x, _y);
 		map.SetTile('T', targetX, _y);
 		_x = targetX;
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
-void GenericActor::MoveY(Map &map, int targetY)
+bool GenericActor::MoveY(Map &map, int targetY)
 {
 	if (processMove(map, _x, targetY))
 	{
 		map.SetTile('.', _x, _y);
 		map.SetTile('T', _x, targetY);
 		_y = targetY;
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 
@@ -51,16 +61,25 @@ bool GenericActor::processMove(Map map, int targetX, int targetY)
 
 void GenericActor::AI_Loop(Map &map)
 {
-	std::mt19937 mt_rand(time(0));
+	std::mt19937 mt_rand(time(0) + (_id*2+_id));
 	auto diceRoll = std::bind(std::uniform_int_distribution<int>(0, 6), std::mt19937(mt_rand));
-	if ( diceRoll() == 1)
-	MoveX(map, 1 + _x);
-	if ( diceRoll() == 2)
-	MoveY(map, 1 + _y);
-	if ( diceRoll() == 4)
-	MoveX(map, -1 + _x);
-	if ( diceRoll() == 3)
-	MoveY(map, -1 + _y);
+	if (diceRoll() == 1){
+
+		if	(!MoveX(map, 1 + _x))
+			MoveX(map, -1 + _x);
+}
+	if (diceRoll() == 2){
+		if (!MoveY(map, 1 + _y))
+			MoveY(map, -1 + _y);
+}
+	if (diceRoll() == 4){
+		if (!MoveX(map, -1 + _x))
+			MoveX(map, 1 + _x);
+}
+	if (diceRoll() == 3){
+		if (!MoveY(map, -1 + _y))
+			MoveY(map, 1 + _y);
+	}
 }
 
 bool GenericActor::isDead(Map &map)

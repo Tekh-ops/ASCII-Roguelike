@@ -10,12 +10,12 @@ class Map;
 class GenericActor
 {
 public:
-	GenericActor(int hp, int defense, bool killable, int xpGain, int x, int y);
+	GenericActor(int hp, int defense, bool killable, int xpGain, int x, int y, int id);
 	bool isKillable(){ return _Killable; }
 	void TakeDamage(int damage) { _hp -= damage - _def % 2; };
 	bool processMove(Map map, int targetX, int targetY);
-	void MoveX(Map &map, int targetX);
-	void MoveY(Map &map, int targetY);
+	bool MoveX(Map &map, int targetX);
+	bool MoveY(Map &map, int targetY);
 	bool isDead(Map &map);
 	void AI_Loop(Map &map);
 	// Do not use this function 
@@ -25,5 +25,6 @@ private:
 	int _hp, _def, _xpGain;
 	bool _Killable;
 	int _x, _y;
+	int _id; // RNG Purposes
 };
 
