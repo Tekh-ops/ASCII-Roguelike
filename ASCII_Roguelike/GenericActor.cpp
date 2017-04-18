@@ -70,7 +70,7 @@ bool GenericActor::processMove(Map map, int targetX, int targetY)
 		return false;
 	if (map.GetTile(targetX, targetY) == '@')
 		return false;
-	if (map.GetTile(targetX, targetY) == '|' || map.GetTile(targetX, targetY) == '-' || map.GetTile(targetX, targetY) == 'X')
+	if (map.GetTile(targetX, targetY) == '|' || map.GetTile(targetX, targetY) == '-' || map.GetTile(targetX, targetY) == 'X' || map.GetTile(targetX,targetY) == '0')
 		return false;
 	if (map.GetTile(targetX, targetY) == '.')
 		return true;

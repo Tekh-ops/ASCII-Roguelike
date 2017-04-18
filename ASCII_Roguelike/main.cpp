@@ -1,6 +1,6 @@
 #include "Game.h"
 
-const int amt = 6;
+const int amt = 7;
 // Map names and file names
 std::string lvlList[amt][2] =
 {
@@ -9,7 +9,8 @@ std::string lvlList[amt][2] =
 	{"levels\\level1.txt", "Privateer's Hold"},
 	{"levels\\level2.txt", "Crimson Passage"},
 	{"levels\\level3.txt", "Chamber of Misfortune"},
-	{ "levels\\level4.txt", "Chamber of Everlasting Schemes" }
+	{ "levels\\level4.txt", "Chamber of Everlasting Schemes" },
+	{"levels\\storehouse.txt", "Friendly Storehouse"}
 };
 
 int main()

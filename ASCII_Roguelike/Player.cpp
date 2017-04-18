@@ -117,6 +117,19 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 			slots[3].UseItem(*this);
 		}
 		break;
+	case 'Z':
+	case 'z':
+		std::cout << "Equip which slot?\n";
+		std::cin >> slot;
+		if (slot == 1)
+		{
+			wSlots[slot - 1].equipped = true;
+		}
+		if (slot == 2)
+		{
+			wSlots[slot - 1].equipped = true;
+		}
+		break;
 	default:
 		std::cout << "Invalid Input. try again" << std::endl;
 		break;
@@ -159,8 +172,19 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 	// XP BOOST TEMP
 	if (map.GetTile(targetX, targetY) == 'I')
 	{
-		AddXP(20);
-		std::cout << "You have gained 20 xp" << std::endl;
+		bool alreadyInInventory = false;
+		for (int i = 0; i < 4; i++)
+		{
+			if (slots[i].empty == true)
+			{
+				if (alreadyInInventory == false){
+					slots[i].AddToInventory(ID_POTION_SKILL);
+					alreadyInInventory = true;
+					slots[i].empty = false;
+				}
+			}
+		}
+		std::cout << "You picked up a potion of skill" << std::endl;
 	}
 	if (map.GetTile(targetX, targetY) == 'h')
 	{
@@ -177,6 +201,38 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 			}
 		}
 		std::cout << "You picked up a health potion.\n";
+	}
+	if (map.GetTile(targetX, targetY) == 'w')
+	{
+		bool alreadyInInventory = false;
+		for (int i = 0; i < 2; i++)
+		{
+			if (wSlots[i].empty == true)
+			{
+				if (alreadyInInventory == false){
+					wSlots[i].AddToInventory(ID_WEAPON_SWORD, *this);
+					alreadyInInventory = true;
+					wSlots[i].empty = false;
+				}
+			}
+		}
+		std::cout << "You picked up a sword.\n";
+	}
+	if (map.GetTile(targetX, targetY) == 'k')
+	{
+		bool alreadyInInventory = false;
+		for (int i = 0; i < 2; i++)
+		{
+			if (wSlots[i].empty == true)
+			{
+				if (alreadyInInventory == false){
+					wSlots[i].AddToInventory(ID_WEAPON_KITESHIELD, *this);
+					alreadyInInventory = true;
+					wSlots[i].empty = false;
+				}
+			}
+		}
+		std::cout << "You picked up a shield.\n";
 	}
 	if (map.GetTile(targetX, targetY) == 'H')
 	{
@@ -207,6 +263,18 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 		map.SetVisited(true);
 		map.EnteredViaRight(true);
 		lvl++;
+		return false;
+	}
+	if (map.GetTile(targetX, targetY) == '(')
+	{
+		map.SetVisited(true);
+		lvl = 2;
+		return false;
+	}
+	if (map.GetTile(targetX, targetY) == '0')
+	{
+		map.SetVisited(true);
+		lvl = 7;
 		return false;
 	}
 	if (map.GetTile(targetX, targetY) == 'g' || map.GetTile(targetX, targetY) == 'G' || map.GetTile(targetX, targetY) == 's' || map.GetTile(targetX, targetY) == 'S' || map.GetTile(targetX, targetY) == 'r' || map.GetTile(targetX, targetY) == 'R')

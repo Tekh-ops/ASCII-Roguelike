@@ -1,4 +1,4 @@
-﻿Build started 4/18/2017 12:30:49 PM.
+﻿Build started 4/18/2017 1:10:56 PM.
      1>Project "C:\Users\Random\Desktop\ASCII_Roguelike\ASCII_Roguelike\ASCII_Roguelike.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Door.cpp Enemy.cpp GenericActor.cpp Map.cpp Player.cpp main.cpp
@@ -16,9 +16,9 @@
      1>Map.cpp(115): warning C4018: '<' : signed/unsigned mismatch
          Player.cpp
      1>Player.cpp(79): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>Player.cpp(135): warning C4018: '<' : signed/unsigned mismatch
-     1>Player.cpp(189): warning C4018: '<' : signed/unsigned mismatch
-     1>Player.cpp(214): warning C4018: '<' : signed/unsigned mismatch
+     1>Player.cpp(148): warning C4018: '<' : signed/unsigned mismatch
+     1>Player.cpp(245): warning C4018: '<' : signed/unsigned mismatch
+     1>Player.cpp(282): warning C4018: '<' : signed/unsigned mismatch
          main.cpp
      1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\Game.h(27): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\Game.h(31): warning C4018: '<' : signed/unsigned mismatch
@@ -42,4 +42,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.20
+Time Elapsed 00:00:02.92

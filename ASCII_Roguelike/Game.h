@@ -73,7 +73,7 @@ namespace Game{
 					std::cout << "  Attack Power: " << player.GetAttack() << std::endl;
 					std::cout << "Lockpick Skill: " << player.GetSkill() << std::endl;
 					std::cout << "XP To Next Level: " << player.GetXP() << " \\ " << player.GetXpTilNextLevel() << std::endl;
-					std::cout << "\nQ to quit game\tT to taunt\n";
+					std::cout << "\nQ to quit game  R(Use item)\n";
 					input = getch();
 					player.LevelUp();
 					int prev = currentLevel;
