@@ -1,32 +1,12 @@
-﻿Build started 4/18/2017 1:10:56 PM.
+﻿Build started 4/18/2017 2:19:15 PM.
      1>Project "C:\Users\Random\Desktop\ASCII_Roguelike\ASCII_Roguelike\ASCII_Roguelike.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Door.cpp Enemy.cpp GenericActor.cpp Map.cpp Player.cpp main.cpp
-         Door.cpp
-         Enemy.cpp
-     1>Enemy.cpp(64): warning C4018: '<' : signed/unsigned mismatch
-     1>Enemy.cpp(181): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-         GenericActor.cpp
-     1>GenericActor.cpp(27): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>GenericActor.cpp(92): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Map.cpp
          Map.cpp
-     1>Map.cpp(37): warning C4018: '<' : signed/unsigned mismatch
      1>Map.cpp(39): warning C4018: '<' : signed/unsigned mismatch
-     1>Map.cpp(113): warning C4018: '<' : signed/unsigned mismatch
+     1>Map.cpp(41): warning C4018: '<' : signed/unsigned mismatch
      1>Map.cpp(115): warning C4018: '<' : signed/unsigned mismatch
-         Player.cpp
-     1>Player.cpp(79): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>Player.cpp(148): warning C4018: '<' : signed/unsigned mismatch
-     1>Player.cpp(245): warning C4018: '<' : signed/unsigned mismatch
-     1>Player.cpp(282): warning C4018: '<' : signed/unsigned mismatch
-         main.cpp
-     1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\Game.h(27): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\Game.h(31): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\Game.h(33): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\Game.h(77): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _getch. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\conio.h(131) : see declaration of 'getch'
-     1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\Game.h(86): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\random\desktop\ascii_roguelike\ascii_roguelike\Game.h(90): warning C4018: '<' : signed/unsigned mismatch
+     1>Map.cpp(117): warning C4018: '<' : signed/unsigned mismatch
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Random\Desktop\ASCII_Roguelike\Release\ASCII_Roguelike.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Random\Desktop\ASCII_Roguelike\Release\ASCII_Roguelike.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Random\Desktop\ASCII_Roguelike\Release\ASCII_Roguelike.lib" /MACHINE:X86 /SAFESEH Release\Door.obj
          Release\Enemy.obj
@@ -42,4 +22,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.92
+Time Elapsed 00:00:01.30
