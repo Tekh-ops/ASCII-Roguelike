@@ -1,6 +1,6 @@
 #include "Map.h"
 #include "Enemy.h"
-
+#include <curses.h>
 
 std::string names[8] =
 {
@@ -122,7 +122,7 @@ void Map::printLevel()
 	{
 		for (int j = 0; j < _levelData[i].size(); j++)
 		{
-			std::cout << _levelData[i][j];
+			mvaddch(i+4,j,_levelData[i][j]);
 		}
 		std::cout << "\n";
 	}

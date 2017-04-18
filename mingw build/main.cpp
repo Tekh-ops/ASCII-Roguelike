@@ -17,12 +17,17 @@ int main()
 {
 	Map map[amt];
 	Player player(15, 100, 5, 15, 12);
+	WINDOW* window;
+	initscr();
+	window = newwin(0,0,0,0);
 	// Load Maps
+	start_color();
 	for (int i = 0; i < amt; i++){
 		map[i].LoadMap(lvlList[i][0]);
 		map[i].setName(lvlList[i][1]);
 	}
-
-	Game::System::RunGame(map, player);
+	Game::System::RunGame(map, player, &window);
+	delwin(window);
+	endwin();
 	return 0;
 }

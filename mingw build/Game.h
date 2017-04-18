@@ -1,8 +1,9 @@
 #include <iostream>
 #include <vector>
 #include "Player.h"
-#include <stdio.h>
 #include <curses.h>
+#include <stdio.h>
+#include <sstream>
 #include "Enemy.h"
 
 // Macros to define flags (More descriptive but otherwise no purpose)
@@ -38,7 +39,7 @@ namespace Game{
 		}
 	}
 	namespace System{
-		void RunGame(Map map[], Player &player)
+		void RunGame(Map map[], Player &player, WINDOW** window)
 		{
 			/*We just use this to handle pretty much everything to do with initialization*/
 			bool run = GAME_ACTIVE; // Run flag (affects whether game still runs)
@@ -48,12 +49,34 @@ namespace Game{
 			std::vector<Door> doors;
 			std::vector<GenericActor> actors;
 			std::vector<Enemy> enemies;
-			std::string name;
-			std::cout << "Before we proceed, your name?" << std::endl;
-			std::cin >> name;
-			std::cout << "Perfect. Welcome " << name << std::endl;
-
+			char name[20];
+			move(4, 5);
+			attron(A_BOLD);
+			init_pair(1, COLOR_YELLOW, COLOR_BLACK);
+			attron(COLOR_PAIR(1));
+			addstr("Before we proceed, your name?\n");
+			move ( 5, 5 );
+			scanw("%s", name);
+			mvprintw(7, 5, "Perfect. Welcome %s\n", name);
+			attron(A_BLINK);
+			mvaddstr(10, 5, "Press Any Key To Begin The Experience :)");
+			attroff(A_BLINK);
+			attroff(COLOR_PAIR(1));
+			noecho();
+			cbreak();
+			getch();
+			wrefresh(*window);
 			/* Main Game Loop*/
+			std::string pLevel = "";
+			std::string pHealth = "";
+			std::string pDefense = "";
+			std::string pSkill = "";
+			std::string pMaxHealth = "";
+			std::string pXP = "";
+			std::stringstream streami;
+			streami.str("");
+			streami << player.GetLevel();
+			pLevel = streami.str();
 			while (run) // equ run == true
 			{
 				if (LevelLoaded != true){
@@ -62,19 +85,32 @@ namespace Game{
 					LevelLoaded = true;
 				}
 				if (player.GetHealth() > 0){
-					std::cout << "\n\n";
-					std::cout << "| " << map[currentLevel - 1].getName() << " | " << std::endl;
+					mvprintw(1,4, "| %s |", map[currentLevel - 1].getName());
 					map[currentLevel - 1].printLevel();
-					std::cout << "You are Level " << player.GetLevel() << std::endl;
-					std::cout << "Name: " << name << "\n";
-					player.PrintInventory(); std::cout << "\n";
-					std::cout << "  Health: " << player.GetHealth() << " \\ " << player.GetMaxHP();
-					std::cout << "  Defense: " << player.GetDefense();
-					std::cout << "  Attack Power: " << player.GetAttack() << std::endl;
-					std::cout << "Lockpick Skill: " << player.GetSkill() << std::endl;
-					std::cout << "XP To Next Level: " << player.GetXP() << " \\ " << player.GetXpTilNextLevel() << std::endl;
-					std::cout << "\n" <<player.da << std::endl;
-					std::cout << "Q to quit game  R(Use item)";
+					
+					streami.str("");
+					streami << player.GetHealth();
+					pHealth = streami.str();
+					streami.str("");
+					streami << player.GetLevel();
+					pLevel = streami.str();
+					streami.str("");
+					streami << player.GetDefense();
+					pDefense = streami.str();
+					streami.str("");
+					streami << player.GetSkill();
+					pSkill = streami.str();
+
+					mvprintw(1, 50, "You are level %d\n", player.GetLevel());
+					mvprintw(13, 0,"Name: %s\n", name);
+					player.PrintInventory();
+					mvprintw(5, 50, "Your Health is %d\\%d", player.GetHealth(), player.GetMaxHP());
+				//	std::cout << "  Defense: " << player.GetDefense();
+				//	std::cout << "  Attack Power: " << player.GetAttack() << std::endl;
+				//	std::cout << "Lockpick Skill: " << player.GetSkill() << std::endl;
+				//	std::cout << "XP To Next Level: " << player.GetXP() << " \\ " << player.GetXpTilNextLevel() << std::endl;
+				//	std::cout << "\n" <<player.da << std::endl;
+				//	std::cout << "Q to quit game  R(Use item)";
 					input = getch();
 					player.LevelUp();
 					int prev = currentLevel;
@@ -83,6 +119,8 @@ namespace Game{
 					{
 						CleanUp::ClearVector(enemies, actors, doors);
 						map[currentLevel - 1].ProcessLevel(player, doors, actors, enemies);
+						clear();
+						wrefresh(*window);
 					}
 					for (int i = 0; i < actors.size(); i++)
 					{
@@ -93,6 +131,7 @@ namespace Game{
 						enemies[i].AI_Loop(map[currentLevel - 1], player, actors, input);
 					}
 					CleanUp::EmptyVector(player, map[currentLevel-1], enemies, actors, doors);
+					wrefresh(*window);
 				}
 				else
 				{
@@ -100,11 +139,12 @@ namespace Game{
 					std::cout << "Farewell, " << name << " Your legacy will be remembered." << std::endl;
 
 					/*Write this man's grave*/
-					std::ofstream rip(name + "'s legacy.txt");
+					std::ofstream rip("your legacy.txt");
 					rip << name << " Was Level " << player.GetLevel() << " Upon death" << std::endl;
 					rip << "You were remembered as a hero" << std::endl;
 					rip << "But was slain on his journey for the quest item or something.\n";
 					rip << "He bore no noteworthy accomplishments obviously." << std::endl;
+					attroff(A_BOLD);
 					run = GAME_CLOSE;
 				}
 			}

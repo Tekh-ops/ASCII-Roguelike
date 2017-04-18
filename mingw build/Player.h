@@ -2,7 +2,9 @@
 #define PLAYER_H
 #include "common.h"
 #include <iostream>
+#include <sstream>
 #include "GenericActor.h"
+#include <curses.h>
 class Map;
 class Door;
 class Enemy;
@@ -175,11 +177,18 @@ public:
 	void PrintInventory()
 	{
 		std::string condition[2] = { "Main-hand", "Off-hand" };
+		std::stringstream ss;
+		std::string number;
 		for (int i = 0; i < 2; i++)
-			std::cout << condition[i] << ". " << wSlots[i].itemName << " ";
-		std::cout << "\n";
-		for (int i = 0; i < 4; i++)
-			std::cout << i + 1 << ". " << slots[i].itemName << " ";
+			mvprintw(i+2, 50, "%s. %s", condition[i].c_str(), wSlots[i].itemName.c_str());
+		printw("\n");
+		for (int i = 0; i < 4; i++){
+			ss << i+1;
+			number = ss.str();
+			move(15+i,0);
+			printw(" %s. %s ", number.c_str(), slots[i].itemName.c_str());
+			ss.str ("");
+		}
 	}
 	char* da = "Nothing noteworthy to say.";
 private:
