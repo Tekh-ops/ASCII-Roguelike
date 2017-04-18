@@ -1,7 +1,7 @@
 #include "Game.h"
 
 const int amt = 6;
-
+// Map names and file names
 std::string lvlList[amt][2] =
 {
 	{"levels\\forest.txt","Forest Of Wild"},
@@ -16,11 +16,12 @@ int main()
 {
 	Map map[amt];
 	Player player(15, 100, 5, 15, 12);
+	// Load Maps
 	for (int i = 0; i < amt; i++){
 		map[i].LoadMap(lvlList[i][0]);
 		map[i].setName(lvlList[i][1]);
 	}
 
-	RunGame(map, player);
+	Game::System::RunGame(map, player);
 	return 0;
 }
