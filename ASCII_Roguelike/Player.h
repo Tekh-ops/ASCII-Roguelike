@@ -6,6 +6,9 @@
 class Map;
 class Door;
 class Enemy;
+
+// Inventory will be 5 of these.
+
 class Player
 {
 public:
@@ -15,6 +18,18 @@ public:
 	void setPosition(int x, int y);
 	void ProcessInput(char in, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemy , Map &map, int &lvl);
 	bool ProcessMove(Map &map, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemy,int targetX, int targetY, int&lvl);
+	void AddHealth(int value)
+	{
+		if (value > _maxHP)
+		{
+			value = _maxHP;
+		}
+		_hp += value;
+	}
+	void AddSkill(int value)
+	{
+		_skill += value;
+	}
 	bool LevelUp()
 	{
 		if (_xp >= _xpReq)
@@ -48,7 +63,59 @@ public:
 		inline int GetDefense() {
 		return _def;
 	}
+		struct InventorySlot
+		{
+			int id = -1; // Item ID
+			bool empty = true;
+			std::string itemName = "Empty";
+			void UseItem(Player &plyer)
+			{
+				if (empty == true)
+				{
+					std::cout << "This slot is empty.\n";
+				}
+				else
+				{
+					if (id == ID_POTION_HEAL)
+					{
+						plyer.AddHealth(40); // basic
+						std::cout << "You gulped down a health potion\n";
+					}
+					if (id == ID_POTION_SKILL)
+					{
+						plyer.AddSkill(2);
+						std::cout << "You feel more professional\n";
+					}
+					empty = true;
+					itemName = "Empty";
+				}
+				id = -1;
+			}
+			void AddToInventory(int id)
+			{
+				if (id == ID_POTION_HEAL)
+				{
+					itemName = "Weak HP Potion";
+				}
+				if (id == ID_POTION_SKILL)
+				{
+					itemName = "Potion Of Skill";
+				}
+				if (id == ID_KEY)
+				{
+					itemName = "A Key";
+				}
+				this->id = id;
+			}
+		};
+		InventorySlot slots[4]; // 4 inventory slots
+		void PrintInventory()
+		{
+			for (int i = 0; i < 4; i++)
+				std::cout << i+1 << ". " << slots[i].itemName << " ";
+		}
 private:
+
 	int _x, _y;
 	int _xpReq = 40;
 	int _def, _hp, _maxHP;
@@ -57,6 +124,9 @@ private:
 	int _lockPick;
 	int _level = 1;
 	int _skill;
+	
 };
+
+
 
 #endif

@@ -4,7 +4,6 @@
 std::string msgs[4] = { "This game sucks", "I'm bored", "I should play MGS:V", "Bored..." };
 Player::Player()
 {
-
 }
 
 Player::Player(int defense, int health, int lockpick, int attack, int skill) :
@@ -77,9 +76,46 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 		break;
 	case 'T':
 	case 't':
-	
 		srand(time(NULL));
 		std::cout << msgs[rand() % 4] << std::endl;
+		break;
+	case 'R':
+	case 'r':
+		int slot;
+		std::cout << "Use which slot?" << std::endl;
+		std::cin >> slot;
+		if (slot == 1)
+		{
+			if (slots[0].empty)
+			{
+				std::cout << "This slot is empty\n";
+			}
+			slots[0].UseItem(*this);
+		}
+		if (slot == 2)
+		{
+			if (slots[1].empty)
+			{
+				std::cout << "This slot is empty\n";
+			}
+			slots[1].UseItem(*this);
+		}
+		if (slot == 3)
+		{
+			if (slots[2].empty)
+			{
+				std::cout << "This slot is empty\n";
+			}
+			slots[2].UseItem(*this);
+		}
+		if (slot == 4)
+		{
+			if (slots[3].empty)
+			{
+				std::cout << "This slot is empty\n";
+			}
+			slots[3].UseItem(*this);
+		}
 		break;
 	default:
 		std::cout << "Invalid Input. try again" << std::endl;
@@ -128,10 +164,19 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 	}
 	if (map.GetTile(targetX, targetY) == 'h')
 	{
-		_hp += 20;
-		if (_hp > _maxHP)
-			_hp = _maxHP;
-		std::cout << "You have been healed slightly.\n";
+		bool alreadyInInventory = false;
+		for (int i = 0; i < 4; i++)
+		{
+			if (slots[i].empty == true)
+			{
+				if( alreadyInInventory == false){
+					slots[i].AddToInventory(ID_POTION_HEAL);
+					alreadyInInventory = true;
+					slots[i].empty = false;
+				}
+			}
+		}
+		std::cout << "You picked up a health potion.\n";
 	}
 	if (map.GetTile(targetX, targetY) == 'H')
 	{

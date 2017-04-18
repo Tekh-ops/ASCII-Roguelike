@@ -66,7 +66,8 @@ namespace Game{
 					std::cout << "------------------" << std::endl;
 					map[currentLevel - 1].printLevel();
 					std::cout << "You are Level " << player.GetLevel() << std::endl;
-					std::cout << "Name: " << name;
+					std::cout << "Name: " << name << "\n";
+					player.PrintInventory(); std::cout << "\n";
 					std::cout << "  Health: " << player.GetHealth() << " \\ " << player.GetMaxHP();
 					std::cout << "  Defense: " << player.GetDefense();
 					std::cout << "  Attack Power: " << player.GetAttack() << std::endl;
