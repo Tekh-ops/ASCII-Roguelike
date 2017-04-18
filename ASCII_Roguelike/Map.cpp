@@ -1,7 +1,7 @@
 #include "Map.h"
 #include "Enemy.h"
 
-/*
+
 std::string names[8] =
 {
 	"Harax Loren",
@@ -13,11 +13,11 @@ std::string names[8] =
 	"Trenton Lern",
 	"Tory Asmith"
 };
-*/
+
 Map::Map()
 {
 }
-int a = 1; // Counter
+int a = 0; // Counter
 // Load the map
 bool Map::LoadMap(std::string path)
 {
@@ -36,6 +36,7 @@ bool Map::LoadMap(std::string path)
 // Really more of something that sets positions
 void Map::ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemies)
 {
+	a = 0;
 	for (int i = 0; i < _levelData.size(); i++)
 	{
 		for (int j = 0; j < _levelData[i].size(); j++)
@@ -57,7 +58,7 @@ void Map::ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<Gen
 			// 'T' Actor
 			if (_levelData[i][j] == 'T')
 			{
-				actors.push_back(GenericActor(100, 0, false, 35, j, i, j*i - j, "Villiger"));
+				actors.push_back(GenericActor(100, 0, false, 35, j, i, j*i - j, names[a]));
 				a++;
 			}
 			/*
