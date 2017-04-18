@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
 #include "Player.h"
-#include <conio.h>
+#include <stdio.h>
+#include <curses.h>
 #include "Enemy.h"
 
 // Macros to define flags (More descriptive but otherwise no purpose)
