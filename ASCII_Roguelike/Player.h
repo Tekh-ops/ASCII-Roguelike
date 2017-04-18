@@ -16,6 +16,10 @@ public:
 	Player(int defense, int health, int lockpick, int attack, int skill); // Inital
 	std::string whoKilledMe(Enemy enemy, std::string str);
 	void setPosition(int x, int y);
+	void PrintMsg(char* d)
+	{
+		da = d;
+	}
 	void ProcessInput(char in, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemy, Map &map, int &lvl);
 	bool ProcessMove(Map &map, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemy, int targetX, int targetY, int&lvl);
 	void AddHealth(int value)
@@ -72,19 +76,19 @@ public:
 		{
 			if (empty == true)
 			{
-				std::cout << "This slot is empty.\n";
+				plyer.PrintMsg("This slot is empty");
 			}
 			else
 			{
 				if (id == ID_POTION_HEAL)
 				{
 					plyer.AddHealth(40); // basic
-					std::cout << "You gulped down a health potion\n";
+					plyer.PrintMsg("You feel better from that drink");
 				}
 				if (id == ID_POTION_SKILL)
 				{
 					plyer.AddSkill(2);
-					std::cout << "You feel more professional\n";
+					plyer.PrintMsg("You feel more professional");
 				}
 
 			}
@@ -109,7 +113,11 @@ public:
 			}
 			this->id = id;
 		}
+		// Refactoring Stuff
 	};
+	void InsertItem(int id);
+	void InsertWeapon(int id);
+
 	struct WeaponSlot
 	{
 		int id = ID_WEAPON_FISTS;
@@ -118,6 +126,8 @@ public:
 		std::string itemName = "Fists";
 		void AddToInventory(int id, Player & plyer)
 		{
+			int baseDef = plyer.GetDefense();
+			int baseDmg = plyer.GetAttack();
 			if (equipped == false)
 			{
 				itemName = "Fists";
@@ -128,14 +138,19 @@ public:
 				if (id == ID_WEAPON_SWORD)
 				{
 					itemName = "Iron Sword";
-					int baseDmg = plyer.GetAttack();
+	
 					plyer.SetAttack(baseDmg + 10);
 				}
 				if (id == ID_WEAPON_KITESHIELD)
 				{
 					itemName = "Kite Shield";
-					int baseDef = plyer.GetDefense();
+
 					plyer.SetDefense(baseDef + 10);
+				}
+				if (id == ID_WEAPON_ROUNDSHIELD)
+				{
+					itemName = "Round Shield";
+					plyer.SetDefense(baseDef + 15);
 				}
 			}
 		}
@@ -166,6 +181,7 @@ public:
 		for (int i = 0; i < 4; i++)
 			std::cout << i + 1 << ". " << slots[i].itemName << " ";
 	}
+	char* da = "Nothing noteworthy to say.";
 private:
 
 	int _x, _y;

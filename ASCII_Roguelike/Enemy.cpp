@@ -88,7 +88,7 @@ bool Enemy::isDead(Map&map, Player &player)
 	if (_hp <= 0){
 		map.SetTile('.', _x, _y); // Effectively remove the enemy from the map
 		player.AddXP(_xpGain); // Give XP
-		std::cout << "you gained " << _xpGain << "XP.\n";
+		std::cout << "You gained " << _xpGain << std::endl;
 		return true;
 	}
 
@@ -127,7 +127,8 @@ bool Enemy::EngageBattle(Player &player, int targetX, int targetY)
 	{
 		// You hit 
 		TakeDamage(diceRoll_pA());
-		std::cout << "You do " << prevHealth - _hp << " damage to " << _name << "\n";
+		std::cout << "You do " << player.GetAttack() << " to " << _name << std::endl;
+		
 		prevHealth = _hp;
 	}
 	else if (p_diceRoll() == diceRoll())
@@ -135,7 +136,7 @@ bool Enemy::EngageBattle(Player &player, int targetX, int targetY)
 		// Very hard condition to reach for whatever reason.
 		TakeDamage(diceRoll_pA());
 		player.TakeDamage(diceRoll_A());
-		std::cout << "Both you and the " << _name << " Get hit by each other.\n";
+		std::cout << "Both you and the enemy hit each other";
 	}
 	return true;
 }
@@ -151,13 +152,10 @@ void Enemy::AI_Loop(Map &map, Player &player, std::vector<GenericActor>&actors, 
 	// Detects within 6 blocks.
 	if (distX <= 6 && distY <= 6){
 		aggroed = true;
-		std::cout << "You have aggroed " << _name << std::endl;
-		// Warning Message Above
 	}
 	else
 	{
 		aggroed = false;
-		std::cout << "You are out of " << _name << "'s aggro range" << std::endl;
 	}
 	if (aggroed == true){
 		if (_x != player.GetX())

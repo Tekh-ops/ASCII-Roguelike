@@ -55,6 +55,11 @@ void Map::ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<Gen
 			{
 				doors.push_back(Door(15, j, i));
 			}
+			// IMPOSSIBLE DOOR (Unless Key)
+			if (_levelData[i][j] == '{' || _levelData[i][j] == '}')
+			{
+				doors.push_back(Door(10000, j, i));
+			}
 			// 'T' Actor
 			if (_levelData[i][j] == 'T')
 			{

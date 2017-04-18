@@ -19,6 +19,37 @@ void Player::setPosition(int x, int y)
 	_y = y;
 }
 
+void Player::InsertItem(int id)
+{
+	bool alreadyInInventory = false;
+	for (int i = 0; i < 4; i++)
+	{
+		if (slots[i].empty == true)
+		{
+			if (alreadyInInventory == false){
+				slots[i].AddToInventory(id);
+				alreadyInInventory = true;
+				slots[i].empty = false;
+			}
+		}
+	}
+}
+void Player::InsertWeapon(int id)
+{
+	bool alreadyInInventory = false;
+	for (int i = 0; i < 2; i++)
+	{
+		if (wSlots[i].empty == true)
+		{
+			if (alreadyInInventory == false){
+				wSlots[i].AddToInventory(id, *this);
+				alreadyInInventory = true;
+				wSlots[i].empty = false;
+			}
+		}
+	}
+}
+
 void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemy , Map &map, int &lvl)
 {
 	int targetX, targetY, prevX, prevY;
@@ -26,6 +57,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 	prevY = _y;
 	targetX = _x;
 	targetY = _y;
+	da = "Nothing";
 	switch (in)
 	{
 	case 'w':
@@ -81,14 +113,14 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 		break;
 	case 'R':
 	case 'r':
+		std::cout << "Which slot?\n";
 		int slot;
-		std::cout << "Use which slot?" << std::endl;
 		std::cin >> slot;
 		if (slot == 1)
 		{
 			if (slots[0].empty)
 			{
-				std::cout << "This slot is empty\n";
+				PrintMsg("This slot is empty\n");
 			}
 			slots[0].UseItem(*this);
 		}
@@ -96,7 +128,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 		{
 			if (slots[1].empty)
 			{
-				std::cout << "This slot is empty\n";
+				PrintMsg("This slot is empty\n");
 			}
 			slots[1].UseItem(*this);
 		}
@@ -104,7 +136,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 		{
 			if (slots[2].empty)
 			{
-				std::cout << "This slot is empty\n";
+				PrintMsg("This slot is empty\n");
 			}
 			slots[2].UseItem(*this);
 		}
@@ -112,22 +144,9 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 		{
 			if (slots[3].empty)
 			{
-				std::cout << "This slot is empty\n";
+				PrintMsg("This slot is empty\n");
 			}
 			slots[3].UseItem(*this);
-		}
-		break;
-	case 'Z':
-	case 'z':
-		std::cout << "Equip which slot?\n";
-		std::cin >> slot;
-		if (slot == 1)
-		{
-			wSlots[slot - 1].equipped = true;
-		}
-		if (slot == 2)
-		{
-			wSlots[slot - 1].equipped = true;
 		}
 		break;
 	default:
@@ -140,7 +159,7 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 {
 	if ((map.GetTile(targetX, targetY) == '#'))
     {
-		std::cout << "Seems you've hit a wall. hmm" << std::endl;
+		PrintMsg("Seems you've hit a wall. hmm");
 		return false;
 	}
 	if ((map.GetTile(targetX, targetY) == '|') || (map.GetTile(targetX,targetY) == '-') || map.GetTile(targetX, targetY) == 'X')
@@ -151,93 +170,59 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 			{
 				if (doors[i].attemptOpen(GetSkill()) == true)
 				{
-					std::cout << "Lockpicking Success!" << std::endl;
+					PrintMsg("Lockpicking Success!");
 					doors.erase(doors.begin() + i);
 					return true;
 				}
 				else
 				{
-					std::cout << "Lockpick failed..." << std::endl;
+					PrintMsg("Lockpick failed...");
 					return false;
 				}
 			}
 		}
 	}
+	if ((map.GetTile(targetX, targetY) == '{') || (map.GetTile(targetX,targetY) == '}'))
+	{
+		PrintMsg("This door requires a key.");
+		return false;
+	}
 	if (map.GetTile(targetX, targetY) == '>' || map.GetTile(targetX, targetY) == '<')
 	{
 		TakeDamage(20);
-		std::cout << "You ran into a trap... Good Job" << std::endl;
+		PrintMsg("You get nicked by a trap.");
 		return false;
 	}
 	// XP BOOST TEMP
 	if (map.GetTile(targetX, targetY) == 'I')
 	{
-		bool alreadyInInventory = false;
-		for (int i = 0; i < 4; i++)
-		{
-			if (slots[i].empty == true)
-			{
-				if (alreadyInInventory == false){
-					slots[i].AddToInventory(ID_POTION_SKILL);
-					alreadyInInventory = true;
-					slots[i].empty = false;
-				}
-			}
-		}
-		std::cout << "You picked up a potion of skill" << std::endl;
+		InsertItem(ID_POTION_SKILL);
+		PrintMsg("You picked up a potion of skill");
 	}
 	if (map.GetTile(targetX, targetY) == 'h')
 	{
-		bool alreadyInInventory = false;
-		for (int i = 0; i < 4; i++)
-		{
-			if (slots[i].empty == true)
-			{
-				if( alreadyInInventory == false){
-					slots[i].AddToInventory(ID_POTION_HEAL);
-					alreadyInInventory = true;
-					slots[i].empty = false;
-				}
-			}
-		}
-		std::cout << "You picked up a health potion.\n";
+		InsertItem(ID_POTION_HEAL);
+		PrintMsg("You picked up a health potion.");
 	}
 	if (map.GetTile(targetX, targetY) == 'w')
 	{
-		bool alreadyInInventory = false;
-		for (int i = 0; i < 2; i++)
-		{
-			if (wSlots[i].empty == true)
-			{
-				if (alreadyInInventory == false){
-					wSlots[i].AddToInventory(ID_WEAPON_SWORD, *this);
-					alreadyInInventory = true;
-					wSlots[i].empty = false;
-				}
-			}
-		}
-		std::cout << "You picked up a sword.\n";
+		InsertWeapon(ID_WEAPON_SWORD);
+		PrintMsg("You picked up a sword.");
 	}
 	if (map.GetTile(targetX, targetY) == 'k')
 	{
-		bool alreadyInInventory = false;
-		for (int i = 0; i < 2; i++)
-		{
-			if (wSlots[i].empty == true)
-			{
-				if (alreadyInInventory == false){
-					wSlots[i].AddToInventory(ID_WEAPON_KITESHIELD, *this);
-					alreadyInInventory = true;
-					wSlots[i].empty = false;
-				}
-			}
-		}
-		std::cout << "You picked up a shield.\n";
+		InsertWeapon(ID_WEAPON_KITESHIELD);
+		PrintMsg("You picked up a shield.");
+	}
+	if (map.GetTile(targetX, targetY) == 'o')
+	{
+		InsertWeapon(ID_WEAPON_ROUNDSHIELD);
+		PrintMsg("You picked up a round shield.");
 	}
 	if (map.GetTile(targetX, targetY) == 'H')
 	{
 		_hp = GetMaxHP();
-		std::cout << "You have been refreshed heavily.\n";
+		PrintMsg("You have been refreshed heavily.");
 	}
 	// Actor
 	if (map.GetTile(targetX, targetY) == 'T')

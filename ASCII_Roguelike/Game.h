@@ -63,7 +63,6 @@ namespace Game{
 				if (player.GetHealth() > 0){
 					std::cout << "\n\n";
 					std::cout << "| " << map[currentLevel - 1].getName() << " | " << std::endl;
-					std::cout << "------------------" << std::endl;
 					map[currentLevel - 1].printLevel();
 					std::cout << "You are Level " << player.GetLevel() << std::endl;
 					std::cout << "Name: " << name << "\n";
@@ -73,7 +72,8 @@ namespace Game{
 					std::cout << "  Attack Power: " << player.GetAttack() << std::endl;
 					std::cout << "Lockpick Skill: " << player.GetSkill() << std::endl;
 					std::cout << "XP To Next Level: " << player.GetXP() << " \\ " << player.GetXpTilNextLevel() << std::endl;
-					std::cout << "\nQ to quit game  R(Use item)\n";
+					std::cout << "\n" <<player.da << std::endl;
+					std::cout << "Q to quit game  R(Use item)";
 					input = getch();
 					player.LevelUp();
 					int prev = currentLevel;
