@@ -1,7 +1,7 @@
 #include "GenericActor.h"
 #include "Map.h"
 #include <time.h>
-
+#include <curses.h>
 std::string dialogue[]
 {
 	"Do you have buisness with me?\n",

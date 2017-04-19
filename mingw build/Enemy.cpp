@@ -120,14 +120,16 @@ bool Enemy::EngageBattle(Player &player, int targetX, int targetY)
 	{
 		// You get hit
 		player.TakeDamage(diceRoll_A());
-		std::cout << _name << " has dealt " << prevPlayerHP - player.GetHealth() << " to you. (You missed)" << std::endl;
+		clear();
+		mvprintw(24, 0, "%s has dealt %d to you\n", _name.c_str() ,prevPlayerHP - player.GetHealth());
 		prevPlayerHP = player.GetHealth();
 	}
 	else if (p_diceRoll() > diceRoll())
 	{
 		// You hit 
 		TakeDamage(diceRoll_pA());
-		std::cout << "You do " << player.GetAttack() << " to " << _name << std::endl;
+		clear();
+		mvprintw(24, 0, "You do %d to %s\n", player.GetAttack() - _def % 2, _name.c_str());
 		
 		prevHealth = _hp;
 	}
@@ -136,7 +138,8 @@ bool Enemy::EngageBattle(Player &player, int targetX, int targetY)
 		// Very hard condition to reach for whatever reason.
 		TakeDamage(diceRoll_pA());
 		player.TakeDamage(diceRoll_A());
-		std::cout << "Both you and the enemy hit each other";
+		clear();
+		mvprintw(24,0,"Both you and the enemy hit each other");
 	}
 	return true;
 }

@@ -185,7 +185,7 @@ public:
 		for (int i = 0; i < 4; i++){
 			ss << i+1;
 			number = ss.str();
-			move(15+i,0);
+			move(19+i,0);
 			printw(" %s. %s ", number.c_str(), slots[i].itemName.c_str());
 			ss.str ("");
 		}

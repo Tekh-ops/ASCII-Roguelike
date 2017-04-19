@@ -4,6 +4,8 @@
 #include <curses.h>
 #include <stdio.h>
 #include <sstream>
+#include <time.h>
+#include <thread> // I should remove headers.. sigh
 #include "Enemy.h"
 
 // Macros to define flags (More descriptive but otherwise no purpose)
@@ -62,21 +64,9 @@ namespace Game{
 			mvaddstr(10, 5, "Press Any Key To Begin The Experience :)");
 			attroff(A_BLINK);
 			attroff(COLOR_PAIR(1));
-			noecho();
-			cbreak();
 			getch();
 			wrefresh(*window);
 			/* Main Game Loop*/
-			std::string pLevel = "";
-			std::string pHealth = "";
-			std::string pDefense = "";
-			std::string pSkill = "";
-			std::string pMaxHealth = "";
-			std::string pXP = "";
-			std::stringstream streami;
-			streami.str("");
-			streami << player.GetLevel();
-			pLevel = streami.str();
 			while (run) // equ run == true
 			{
 				if (LevelLoaded != true){
@@ -85,26 +75,14 @@ namespace Game{
 					LevelLoaded = true;
 				}
 				if (player.GetHealth() > 0){
+					noecho();
 					mvprintw(1,4, "| %s |", map[currentLevel - 1].getName());
 					map[currentLevel - 1].printLevel();
 					
-					streami.str("");
-					streami << player.GetHealth();
-					pHealth = streami.str();
-					streami.str("");
-					streami << player.GetLevel();
-					pLevel = streami.str();
-					streami.str("");
-					streami << player.GetDefense();
-					pDefense = streami.str();
-					streami.str("");
-					streami << player.GetSkill();
-					pSkill = streami.str();
-
-					mvprintw(1, 50, "You are level %d\n", player.GetLevel());
-					mvprintw(13, 0,"Name: %s\n", name);
+					mvprintw(18, 50, "You are level %d\n", player.GetLevel());
+					mvprintw(17, 0,"Name: %s\n", name);
 					player.PrintInventory();
-					mvprintw(5, 50, "Your Health is %d\\%d", player.GetHealth(), player.GetMaxHP());
+					mvprintw(16, 50, "Your Health is %d\\%d", player.GetHealth(), player.GetMaxHP());
 				//	std::cout << "  Defense: " << player.GetDefense();
 				//	std::cout << "  Attack Power: " << player.GetAttack() << std::endl;
 				//	std::cout << "Lockpick Skill: " << player.GetSkill() << std::endl;

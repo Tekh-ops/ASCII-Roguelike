@@ -1,6 +1,7 @@
 #include "Player.h"
 #include <time.h>
 #include "Enemy.h"
+int slot;
 std::string msgs[4] = { "This game sucks", "I'm bored", "I should play MGS:V", "Bored..." };
 Player::Player()
 {
@@ -57,7 +58,6 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 	prevY = _y;
 	targetX = _x;
 	targetY = _y;
-	da = "Nothing";
 	switch (in)
 	{
 	case 'w':
@@ -106,51 +106,68 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 		// since it's not really an error
 		exit(0);
 		break;
-	case 'T':
-	case 't':
-		srand(time(NULL));
-		std::cout << msgs[rand() % 4] << std::endl;
+	case 'x':
+	case 'X':
+		clear();
 		break;
 	case 'R':
-	case 'r':
-		std::cout << "Which slot?\n";
-		int slot;
-		std::cin >> slot;
+	case 'r':{
+		mvprintw(14, 0,("Which slot?\n"));
+		move(15, 0);
+		echo();
+		char slot_ac = getch();
+		if(slot_ac == '1')
+			slot = 1;
+		if(slot_ac == '2')
+			slot = 2;
+		if(slot_ac == '3')
+			slot = 3;
+		if(slot_ac == '4')
+			slot = 4;
 		if (slot == 1)
 		{
 			if (slots[0].empty)
 			{
-				PrintMsg("This slot is empty\n");
-			}
+				mvprintw(15,0,"This slot is empty\n");
+			}else{
 			slots[0].UseItem(*this);
-		}
+			clear();
+			}}
 		if (slot == 2)
 		{
 			if (slots[1].empty)
 			{
-				PrintMsg("This slot is empty\n");
-			}
+				mvprintw(15,0,"This slot is empty\n");
+			}else{
 			slots[1].UseItem(*this);
-		}
+			clear();
+			}}
 		if (slot == 3)
 		{
 			if (slots[2].empty)
 			{
-				PrintMsg("This slot is empty\n");
+				mvprintw(15,0,"This slot is empty\n");
 			}
+			else{
 			slots[2].UseItem(*this);
-		}
+			clear();
+			}}
 		if (slot == 4)
 		{
 			if (slots[3].empty)
 			{
-				PrintMsg("This slot is empty\n");
-			}
+				mvprintw(15,0,"This slot is empty\n");
+			}else{
 			slots[3].UseItem(*this);
+			clear();
+			}
+		}
+		noecho();
+		slot = 0;
 		}
 		break;
 	default:
-		std::cout << "Invalid Input. try again" << std::endl;
+		mvprintw(15,0,"Invalid Input. try again");
 		break;
 	}
 }
@@ -170,13 +187,13 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 			{
 				if (doors[i].attemptOpen(GetSkill()) == true)
 				{
-					PrintMsg("Lockpicking Success!");
+					mvprintw(15, 0,"Lockpicking Success!");
 					doors.erase(doors.begin() + i);
 					return true;
 				}
 				else
 				{
-					PrintMsg("Lockpick failed...");
+					mvprintw(15,0, "Lockpick failed...");
 					return false;
 				}
 			}
@@ -184,45 +201,45 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 	}
 	if ((map.GetTile(targetX, targetY) == '{') || (map.GetTile(targetX,targetY) == '}'))
 	{
-		PrintMsg("This door requires a key.");
+		mvprintw(15,0,"This door requires a key.");
 		return false;
 	}
 	if (map.GetTile(targetX, targetY) == '>' || map.GetTile(targetX, targetY) == '<')
 	{
 		TakeDamage(20);
-		PrintMsg("You get nicked by a trap.");
+		mvprintw(15,0,"You get nicked by a trap.");
 		return false;
 	}
 	// XP BOOST TEMP
 	if (map.GetTile(targetX, targetY) == 'I')
 	{
 		InsertItem(ID_POTION_SKILL);
-		PrintMsg("You picked up a potion of skill");
+		mvprintw(15,0,"You picked up a potion of skill");
 	}
 	if (map.GetTile(targetX, targetY) == 'h')
 	{
 		InsertItem(ID_POTION_HEAL);
-		PrintMsg("You picked up a health potion.");
+		mvprintw(15,0,"You picked up a health potion.");
 	}
 	if (map.GetTile(targetX, targetY) == 'w')
 	{
 		InsertWeapon(ID_WEAPON_SWORD);
-		PrintMsg("You picked up a sword.");
+		mvprintw(15,0,"You picked up a sword.");
 	}
 	if (map.GetTile(targetX, targetY) == 'k')
 	{
 		InsertWeapon(ID_WEAPON_KITESHIELD);
-		PrintMsg("You picked up a shield.");
+		mvprintw(15,0,"You picked up a shield.");
 	}
 	if (map.GetTile(targetX, targetY) == 'o')
 	{
 		InsertWeapon(ID_WEAPON_ROUNDSHIELD);
-		PrintMsg("You picked up a round shield.");
+		mvprintw(15,0,"You picked up a round shield.");
 	}
 	if (map.GetTile(targetX, targetY) == 'H')
 	{
 		_hp = GetMaxHP();
-		PrintMsg("You have been refreshed heavily.");
+		mvprintw(15,0,"You have been refreshed heavily.");
 	}
 	// Actor
 	if (map.GetTile(targetX, targetY) == 'T')
@@ -231,7 +248,7 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 		{
 			if (targetX == actors[i].GetX() && targetY == actors[i].GetY())
 			{
-				std::cout<< actors[i].getName() << " : " <<actors[i].getResponse();
+				mvprintw(14,0, "%s : %s", actors[i].getName(), actors[i].getResponse());
 			}
 		}
 		return false;
