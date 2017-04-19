@@ -2,6 +2,8 @@
 #include "Enemy.h"
 #include <curses.h>
 
+//COLOR PALETTES
+
 std::string names[8] =
 {
 	"Harax Loren",
@@ -117,13 +119,52 @@ void Map::SetTile(const char tile, int x, int y)
 
 void Map::printLevel()
 {
+	init_color(COLOR_MAGENTA, 655, 655, 655);
 	// YAY LEVEL PRINTS SUCCESSFULLY
 	for (int i = 0; i < _levelData.size(); i++)
 	{
 		for (int j = 0; j < _levelData[i].size(); j++)
 		{
+
 			mvaddch(i+4,j,_levelData[i][j]);
+			
 		}
-		std::cout << "\n";
+		for(int j = 0; j < _levelData[i].size(); j++)
+		{
+			if(_levelData[i][j] == '@')
+			{
+				init_pair(1, COLOR_GREEN, COLOR_BLACK);
+				attron(COLOR_PAIR(1));
+				mvaddch(i+4, j, _levelData[i][j]);
+				attroff(COLOR_PAIR(1));
+			}
+			if(_levelData[i][j] == 'T')
+			{
+				init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+				attron(COLOR_PAIR(2));
+				mvaddch(i+4, j, _levelData[i][j]);
+				attroff(COLOR_PAIR(2));
+			}
+			if(_levelData[i][j] == '#')
+			{
+				init_pair(3, COLOR_RED, COLOR_BLACK);
+				attron(COLOR_PAIR(3));
+				mvaddch(i+4, j, _levelData[i][j]);
+				attroff(COLOR_PAIR(3));
+			}
+			if(_levelData[i][j] == 'g' || _levelData[i][j] == 'G')
+			{
+				attron(COLOR_PAIR(1));
+				mvaddch(i+4, j, _levelData[i][j]);
+				attroff(COLOR_PAIR(1));
+			}
+			if(_levelData[i][j] == 's' || _levelData[i][j] == 'S')
+			{
+				init_pair(9, COLOR_BLUE, COLOR_BLACK);
+				attron(COLOR_PAIR(9));
+				mvaddch(i+4, j, _levelData[i][j]);
+				attroff(COLOR_PAIR(9));
+			}
+		}
 	}
 }

@@ -47,7 +47,9 @@ public:
 			_xpReq += 20;
 			_skill += 2;
 			_level++;
+			attron(COLOR_PAIR(1));
 			mvprintw(14,0,"Leveled Up!\n");
+			attroff(COLOR_PAIR(1));
 			return true;
 		}
 		return false;
@@ -177,18 +179,25 @@ public:
 	void PrintInventory()
 	{
 		std::string condition[2] = { "Main-hand", "Off-hand" };
-		std::stringstream ss;
-		std::string number;
-		for (int i = 0; i < 2; i++)
-			mvprintw(i+2, 50, "%s. %s", condition[i].c_str(), wSlots[i].itemName.c_str());
+		for (int i = 0; i < 2; i++){
+			attron(COLOR_PAIR(2));
+			mvprintw(i+2, 50, "%s. ", condition[i].c_str());
+			attroff(COLOR_PAIR(2));
+			attron(COLOR_PAIR(1));
+			printw("%s", wSlots[i].itemName.c_str());
+			attroff(COLOR_PAIR(1));
+		}
 		printw("\n");
 		for (int i = 0; i < 4; i++){
-			ss << i+1;
-			number = ss.str();
 			move(19+i,0);
-			printw(" %s. %s ", number.c_str(), slots[i].itemName.c_str());
-			ss.str ("");
+			attron(COLOR_PAIR(2));
+			printw(" %d. ", i+1);
+			attroff(COLOR_PAIR(2));
+			attron(COLOR_PAIR(1));
+			printw("%s", slots[i].itemName.c_str());
+			attroff(COLOR_PAIR(1));
 		}
+		
 	}
 	char* da = "Nothing noteworthy to say.";
 private:

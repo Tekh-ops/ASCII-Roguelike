@@ -124,6 +124,8 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 			slot = 3;
 		if(slot_ac == '4')
 			slot = 4;
+		init_pair(5, COLOR_BLUE, COLOR_WHITE);
+		attron(COLOR_PAIR(5));
 		if (slot == 1)
 		{
 			if (slots[0].empty)
@@ -165,6 +167,7 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 		noecho();
 		slot = 0;
 		}
+		 attroff(COLOR_PAIR(5));
 		break;
 	default:
 		mvprintw(15,0,"Invalid Input. try again");
@@ -187,13 +190,17 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 			{
 				if (doors[i].attemptOpen(GetSkill()) == true)
 				{
+					attron(COLOR_PAIR(1));
 					mvprintw(15, 0,"Lockpicking Success!");
 					doors.erase(doors.begin() + i);
+					attroff(COLOR_PAIR(1));
 					return true;
 				}
 				else
 				{
+					attron(COLOR_PAIR(5));
 					mvprintw(15,0, "Lockpick failed...");
+					attroff(COLOR_PAIR(5));
 					return false;
 				}
 			}
@@ -201,7 +208,10 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 	}
 	if ((map.GetTile(targetX, targetY) == '{') || (map.GetTile(targetX,targetY) == '}'))
 	{
+		init_pair(6, COLOR_RED, COLOR_BLACK);
+		attron(COLOR_PAIR(6));
 		mvprintw(15,0,"This door requires a key.");
+		attroff(COLOR_PAIR(6));
 		return false;
 	}
 	if (map.GetTile(targetX, targetY) == '>' || map.GetTile(targetX, targetY) == '<')
@@ -214,32 +224,44 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 	if (map.GetTile(targetX, targetY) == 'I')
 	{
 		InsertItem(ID_POTION_SKILL);
+		attron(COLOR_PAIR(2));
 		mvprintw(15,0,"You picked up a potion of skill");
+		attroff(COLOR_PAIR(2));
 	}
 	if (map.GetTile(targetX, targetY) == 'h')
 	{
 		InsertItem(ID_POTION_HEAL);
+		attron(COLOR_PAIR(2));
 		mvprintw(15,0,"You picked up a health potion.");
+		attroff(COLOR_PAIR(2));
 	}
 	if (map.GetTile(targetX, targetY) == 'w')
 	{
 		InsertWeapon(ID_WEAPON_SWORD);
+		attron(COLOR_PAIR(2));
 		mvprintw(15,0,"You picked up a sword.");
+		attron(COLOR_PAIR(2));
 	}
 	if (map.GetTile(targetX, targetY) == 'k')
 	{
 		InsertWeapon(ID_WEAPON_KITESHIELD);
+		attron(COLOR_PAIR(2));
 		mvprintw(15,0,"You picked up a shield.");
+		attroff(COLOR_PAIR(2));
 	}
 	if (map.GetTile(targetX, targetY) == 'o')
 	{
 		InsertWeapon(ID_WEAPON_ROUNDSHIELD);
+		attron(COLOR_PAIR(2));
 		mvprintw(15,0,"You picked up a round shield.");
+		attroff(COLOR_PAIR(2));
 	}
 	if (map.GetTile(targetX, targetY) == 'H')
 	{
 		_hp = GetMaxHP();
+		attron(COLOR_PAIR(1));
 		mvprintw(15,0,"You have been refreshed heavily.");
+		attroff(COLOR_PAIR(1));
 	}
 	// Actor
 	if (map.GetTile(targetX, targetY) == 'T')
@@ -248,7 +270,10 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 		{
 			if (targetX == actors[i].GetX() && targetY == actors[i].GetY())
 			{
-				mvprintw(14,0, "%s : %s", actors[i].getName(), actors[i].getResponse());
+				attron(COLOR_PAIR(2));
+				mvprintw(14,0, "%s : ", actors[i].getName());
+				attroff(COLOR_PAIR(2));
+				printw("%s", actors[i].getResponse());
 			}
 		}
 		return false;

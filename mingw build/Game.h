@@ -3,7 +3,6 @@
 #include "Player.h"
 #include <curses.h>
 #include <stdio.h>
-#include <sstream>
 #include <time.h>
 #include <thread> // I should remove headers.. sigh
 #include "Enemy.h"
@@ -82,9 +81,18 @@ namespace Game{
 					mvprintw(18, 50, "You are level %d\n", player.GetLevel());
 					mvprintw(17, 0,"Name: %s\n", name);
 					player.PrintInventory();
-					mvprintw(16, 50, "Your Health is %d\\%d", player.GetHealth(), player.GetMaxHP());
-					mvprintw(17, 50, "Your Defense is %d", player.GetDefense());
-					mvprintw(15, 50, "XP To Next Level : %d\\%d", player.GetXP(), player.GetXpTilNextLevel());
+					attron(COLOR_PAIR(2));
+					mvprintw(16, 50, "Your Health is ");
+					attroff(COLOR_PAIR(2));
+					printw(" %d \\ %d", player.GetHealth(), player.GetMaxHP());
+					attron(COLOR_PAIR(2));
+					mvprintw(17, 50, "Your Defense is ");
+					attroff(COLOR_PAIR(2));
+					printw( "%d", player.GetDefense() );
+					attron(COLOR_PAIR(2));
+					mvprintw(15, 50, "XP To Next Level : ");
+					attroff(COLOR_PAIR(2));
+					printw(" %d\\%d", player.GetXP(), player.GetXpTilNextLevel());
 					mvprintw(19, 50, "You Do %d raw damage", player.GetAttack());
 					mvprintw(20, 50, "Your lockpicking skill is %d", player.GetSkill());
 				//	std::cout << "  Attack Power: " << player.GetAttack() << std::endl;
