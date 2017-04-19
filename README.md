@@ -11,6 +11,6 @@ should be refactored.
 - Inventory System!
 - Enemies!
 
-###Note
+##Note
 The mingw version will be updated more often.
 (it also has curses)
