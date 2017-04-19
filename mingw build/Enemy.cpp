@@ -2,8 +2,10 @@
 #include "Map.h"
 #include "GenericActor.h"
 #include "Player.h"
+#include <SDL2/SDL_mixer.h>
 #include <time.h>
-// I've been using nothing but init lists for this.
+
+
 Enemy::Enemy(int hp, int defense, int xpGain, int x, int y, int id, std::string name, char tile, int attack, int skill) :_hp(hp), _def(defense), _xpGain(xpGain)
 	, _x(x), _y(y), _id(id), _name(name), _tile(tile), _attack(attack)
 	, _skill(skill)
@@ -106,6 +108,8 @@ bool Enemy::EngageBattle(Player &player, int targetX, int targetY)
 	if (targetX == _x && targetY == _y)
 	{
 	/*Get the hit chances using rng*/
+	
+	Mix_Chunk *hit = Mix_LoadWAV("audio\\hit.wav");
 	std::mt19937 mt_rant_p(time(0) % player.GetSkill());
 	std::mt19937 mt_rand(time(0) % _skill);
 	/*Damage dice rolls*/
@@ -114,7 +118,7 @@ bool Enemy::EngageBattle(Player &player, int targetX, int targetY)
 	int prevHealth = _hp; // Use to print the difference in health
 	int prevPlayerHP = player.GetHealth();
 	std::mt19937 mt_ran(time(0) % _skill + 50);
-	std::mt19937 mt_rane(time(0) % player.GetSkill() % 25);
+	std::mt19937 mt_rane(time(0) % player.GetSkill()+50);
 	auto diceRoll_A = std::bind(std::uniform_int_distribution<int>(1, _attack), std::mt19937(mt_ran));
 	auto diceRoll_pA = std::bind(std::uniform_int_distribution<int>(1, player.GetAttack()), std::mt19937(mt_rane));
 	if (diceRoll() > p_diceRoll())
@@ -124,6 +128,9 @@ bool Enemy::EngageBattle(Player &player, int targetX, int targetY)
 		clear();
 		mvprintw(24, 0, "%s has dealt %d to you\n", _name.c_str() ,prevPlayerHP - player.GetHealth());
 		prevPlayerHP = player.GetHealth();
+	
+
+		Mix_PlayChannel(-1, hit, 0);
 	}
 	else if (p_diceRoll() > diceRoll())
 	{
@@ -133,6 +140,8 @@ bool Enemy::EngageBattle(Player &player, int targetX, int targetY)
 		mvprintw(24, 0, "You do %d to %s\n", player.GetAttack() - _def % 2, _name.c_str());
 		
 		prevHealth = _hp;
+
+		Mix_PlayChannel(-1, hit, 0);
 	}
 	else if (p_diceRoll() == diceRoll())
 	{
@@ -141,7 +150,11 @@ bool Enemy::EngageBattle(Player &player, int targetX, int targetY)
 		player.TakeDamage(diceRoll_A());
 		clear();
 		mvprintw(24,0,"Both you and the enemy hit each other");
+	
+		Mix_PlayChannel(-1, hit, 0);
 	}
+	flash();
+	Mix_PlayChannel(-1, hit, 0);
 	return true;
 }
 	return false;

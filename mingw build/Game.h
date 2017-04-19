@@ -1,17 +1,20 @@
 #include <iostream>
 #include <vector>
 #include "Player.h"
+#include <SDL2/SDL_mixer.h>
 #include <curses.h>
 #include <stdio.h>
 #include <time.h>
 #include <thread> // I should remove headers.. sigh
 #include "Enemy.h"
+#include <panel.h>
 
 // Macros to define flags (More descriptive but otherwise no purpose)
 #define GAME_ACTIVE true
 #define GAME_CLOSE false
 #define ALIVE_ACTOR false
 #define DEAD_ACTOR true
+
 namespace Game{
 	namespace CleanUp{
 		void ClearVector(std::vector<Enemy> &vec, std::vector<GenericActor> &actors, std::vector<Door> &doors)
@@ -40,7 +43,7 @@ namespace Game{
 		}
 	}
 	namespace System{
-		void RunGame(Map map[], Player &player, WINDOW** window)
+		void RunGame(Map map[], Player &player, WINDOW* window)
 		{
 			/*We just use this to handle pretty much everything to do with initialization*/
 			bool run = GAME_ACTIVE; // Run flag (affects whether game still runs)
@@ -51,11 +54,13 @@ namespace Game{
 			std::vector<GenericActor> actors;
 			std::vector<Enemy> enemies;
 			char name[20];
-			move(4, 5);
+			Mix_Chunk* moveA = Mix_LoadWAV("audio\\move.wav");
+			Mix_Chunk* taunt = Mix_LoadWAV("audio\\taunt.wav");
+			cbreak();
 			attron(A_BOLD);
 			init_pair(1, COLOR_YELLOW, COLOR_BLACK);
 			attron(COLOR_PAIR(1));
-			addstr("Before we proceed, your name?\n");
+			mvprintw(4, 5,"Before we proceed, your name?\n");
 			move ( 5, 5 );
 			scanw("%s", name);
 			mvprintw(7, 5, "Perfect. Welcome %s\n", name);
@@ -64,7 +69,9 @@ namespace Game{
 			attroff(A_BLINK);
 			attroff(COLOR_PAIR(1));
 			getch();
-			wrefresh(*window);
+			flash();
+			wrefresh(window);
+			curs_set(0);
 			/* Main Game Loop*/
 			while (run) // equ run == true
 			{
@@ -77,7 +84,6 @@ namespace Game{
 					noecho();
 					mvprintw(1,4, "| %s |", map[currentLevel - 1].getName());
 					map[currentLevel - 1].printLevel();
-					
 					mvprintw(18, 50, "You are level %d\n", player.GetLevel());
 					mvprintw(17, 0,"Name: %s\n", name);
 					player.PrintInventory();
@@ -108,8 +114,9 @@ namespace Game{
 					{
 						CleanUp::ClearVector(enemies, actors, doors);
 						map[currentLevel - 1].ProcessLevel(player, doors, actors, enemies);
+						Mix_PlayChannel(-1, moveA, 0);
 						clear();
-						wrefresh(*window);
+						wrefresh(window);
 					}
 					for (int i = 0; i < actors.size(); i++)
 					{
@@ -120,10 +127,11 @@ namespace Game{
 						enemies[i].AI_Loop(map[currentLevel - 1], player, actors, input);
 					}
 					CleanUp::EmptyVector(player, map[currentLevel-1], enemies, actors, doors);
-					wrefresh(*window);
+					wrefresh(window);
 				}
 				else
 				{
+					Mix_PlayChannel(-1, taunt, 0);
 					std::cout << "\n\n\n\n\n\n\n\n\n\n";
 					std::cout << "Farewell, " << name << " Your legacy will be remembered." << std::endl;
 

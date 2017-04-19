@@ -77,29 +77,29 @@ void Map::ProcessLevel(Player &player, std::vector<Door> &doors, std::vector<Gen
 			// Goblin
 			if (_levelData[i][j] == 'g')
 			{
-				enemies.push_back(Enemy(30, 25, 20, j, i, j*i - j + 1, "Goblin", 'g', 20, 11));
+				enemies.push_back(Enemy(30, 25, 20, j, i, j*i - j + 1, "Goblin", 'g', 20, 17));
 			}
 			if (_levelData[i][j] == 'G')
 			{
-				enemies.push_back(Enemy(70, 35, 250, j, i, j*i - 3, "Gorbalt The Cruel", 'G', 30, 25));
+				enemies.push_back(Enemy(300, 35, 250, j, i, j*i - 3, "Gorbalt The Cruel", 'G', 30, 45));
 			}
 			// Rat
 			if (_levelData[i][j] == 'r')
 			{
-				enemies.push_back(Enemy(15, 2, 5, j, i, j*i - j + 2, "Rat", 'r', 15, 5));
+				enemies.push_back(Enemy(15, 2, 5, j, i, j*i - j + 2, "Rat", 'r', 15, 8));
 			}
 			if (_levelData[i][j] == 'R')
 			{
-				enemies.push_back(Enemy(55, 15, 200, j, i, j*i - 2, "King Of Rats", 'R', 25, 30));
+				enemies.push_back(Enemy(125, 15, 200, j, i, j*i - 2, "King Of Rats", 'R', 25, 30));
 			}
 			// Snake
 			if (_levelData[i][j] == 's')
 			{
-				enemies.push_back(Enemy(15, 15, 10, j, i, j*i - j + 3, "Viper", 's', 30, 10));
+				enemies.push_back(Enemy(15, 15, 10, j, i, j*i - j + 3, "Viper", 's', 30, 20));
 			}
 			if (_levelData[i][j] == 'S')
 			{
-				enemies.push_back(Enemy(60, 35, 300, j, i, j*i - 4, "Lord Of Schemes", 'S', 30, 30));
+				enemies.push_back(Enemy(175, 35, 300, j, i, j*i - 4, "Lord Of Schemes", 'S', 30, 30));
 			}
 		}
 	}

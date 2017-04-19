@@ -5,6 +5,7 @@
 #include <sstream>
 #include "GenericActor.h"
 #include <curses.h>
+#include <SDL2/SDL_mixer.h>
 class Map;
 class Door;
 class Enemy;
@@ -86,6 +87,8 @@ public:
 			{
 				if (id == ID_POTION_HEAL)
 				{
+					Mix_Chunk* heal = Mix_LoadWAV("audio\\heal.wav");
+					Mix_PlayChannel(-1, heal, 0);
 					plyer.AddHealth(40); // basic
 					plyer.PrintMsg("You feel better from that drink");
 				}
