@@ -47,7 +47,7 @@ public:
 			_xpReq += 20;
 			_skill += 2;
 			_level++;
-			std::cout << "Leveled Up!" << std::endl;
+			mvprintw(14,0,"Leveled Up!\n");
 			return true;
 		}
 		return false;

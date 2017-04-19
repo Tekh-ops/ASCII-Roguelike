@@ -83,7 +83,10 @@ namespace Game{
 					mvprintw(17, 0,"Name: %s\n", name);
 					player.PrintInventory();
 					mvprintw(16, 50, "Your Health is %d\\%d", player.GetHealth(), player.GetMaxHP());
-				//	std::cout << "  Defense: " << player.GetDefense();
+					mvprintw(17, 50, "Your Defense is %d", player.GetDefense());
+					mvprintw(15, 50, "XP To Next Level : %d\\%d", player.GetXP(), player.GetXpTilNextLevel());
+					mvprintw(19, 50, "You Do %d raw damage", player.GetAttack());
+					mvprintw(20, 50, "Your lockpicking skill is %d", player.GetSkill());
 				//	std::cout << "  Attack Power: " << player.GetAttack() << std::endl;
 				//	std::cout << "Lockpick Skill: " << player.GetSkill() << std::endl;
 				//	std::cout << "XP To Next Level: " << player.GetXP() << " \\ " << player.GetXpTilNextLevel() << std::endl;

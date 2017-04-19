@@ -88,7 +88,8 @@ bool Enemy::isDead(Map&map, Player &player)
 	if (_hp <= 0){
 		map.SetTile('.', _x, _y); // Effectively remove the enemy from the map
 		player.AddXP(_xpGain); // Give XP
-		std::cout << "You gained " << _xpGain << std::endl;
+		clear();
+		mvprintw(14,0,"You gained %d\n", _xpGain);
 		return true;
 	}
 
