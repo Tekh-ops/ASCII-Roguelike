@@ -49,7 +49,7 @@ void Player::InsertItem(int id)
 		}
 	}
 }
-void Player::InsertWeapon(int id)
+void Player::InsertWeapon(int id, char* name)
 {
 	bool alreadyInInventory = false;
 	for (int i = 0; i < 2; i++)
@@ -57,7 +57,7 @@ void Player::InsertWeapon(int id)
 		if (wSlots[i].empty == true)
 		{
 			if (alreadyInInventory == false){
-				wSlots[i].AddToInventory(id, *this);
+				wSlots[i].AddToInventory(id, *this, name);
 				alreadyInInventory = true;
 				wSlots[i].empty = false;
 			}
@@ -85,7 +85,7 @@ void Player::InsertWeapon(int id)
 				{
 					if(alreadyInInventory == false)
 					{
-						wSlots[b-1].AddToInventory(id, *this);
+						wSlots[b-1].AddToInventory(id, *this, name);
 						alreadyInInventory = true;
 						wSlots[b-1].empty = false;
 						return ;
@@ -253,21 +253,21 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 	}
 	if (map.GetTile(targetX, targetY) == 'w')
 	{
-		InsertWeapon(ID_WEAPON_SWORD);
+		InsertWeapon(ID_WEAPON_SWORD, "Basic Sword");
 		attron(COLOR_PAIR(2));
 		mvprintw(15,0,"You picked up a sword.");
 		attron(COLOR_PAIR(2));
 	}
 	if (map.GetTile(targetX, targetY) == 'k')
 	{
-		InsertWeapon(ID_WEAPON_KITESHIELD);
+		InsertWeapon(ID_WEAPON_KITESHIELD, "Basic Kite Shield");
 		attron(COLOR_PAIR(2));
 		mvprintw(15,0,"You picked up a shield.");
 		attroff(COLOR_PAIR(2));
 	}
 	if (map.GetTile(targetX, targetY) == 'o')
 	{
-		InsertWeapon(ID_WEAPON_ROUNDSHIELD);
+		InsertWeapon(ID_WEAPON_ROUNDSHIELD, "Round Shield");
 		attron(COLOR_PAIR(2));
 		mvprintw(15,0,"You picked up a round shield.");
 		attroff(COLOR_PAIR(2));

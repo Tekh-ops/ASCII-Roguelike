@@ -124,7 +124,7 @@ public:
 		// Refactoring Stuff
 	};
 	void InsertItem(int id);
-	void InsertWeapon(int id);
+	void InsertWeapon(int id, char* name);
 
 	struct WeaponSlot
 	{
@@ -132,7 +132,7 @@ public:
 		bool empty = true;
 		bool equipped = true;
 		std::string itemName = "Fists";
-		void AddToInventory(int id, Player & plyer)
+		void AddToInventory(int id, Player & plyer, char* name)
 		{
 			int baseDef = plyer.GetDefense();
 			int baseDmg = plyer.GetAttack();
@@ -140,30 +140,22 @@ public:
 			{
 				itemName = "Fists";
 				int baseDmg = plyer.GetAttack();
-				plyer.SetAttack(baseDmg + 2);
+				plyer.SetAttack(baseDmg - 10);
 			}
 			if (equipped == true){
-				if (id == ID_WEAPON_FISTS)
-				{
-					plyer.SetAttack(baseDmg);
-				}
 				if (id == ID_WEAPON_SWORD)
 				{
-					itemName = "Iron Sword";
-	
 					plyer.SetAttack(baseDmg + 10);
 				}
 				if (id == ID_WEAPON_KITESHIELD)
 				{
-					itemName = "Kite Shield";
-
 					plyer.SetDefense(baseDef + 10);
 				}
 				if (id == ID_WEAPON_ROUNDSHIELD)
 				{
-					itemName = "Round Shield";
 					plyer.SetDefense(baseDef + 15);
 				}
+				itemName = name;
 			}
 		
 		}
@@ -218,8 +210,7 @@ private:
 	int _attack;
 	int _lockPick;
 	int _level = 1;
-	int _skill;
-	
+	int _skill;	
 };
 
 
