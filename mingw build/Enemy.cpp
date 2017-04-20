@@ -117,10 +117,10 @@ bool Enemy::EngageBattle(Player &player, int targetX, int targetY)
 	auto p_diceRoll = std::bind(std::uniform_int_distribution<int>(0, 6), std::mt19937(mt_rant_p));
 	int prevHealth = _hp; // Use to print the difference in health
 	int prevPlayerHP = player.GetHealth();
-	std::mt19937 mt_ran(time(0) % _skill + 50);
-	std::mt19937 mt_rane(time(0) % player.GetSkill()+50);
-	auto diceRoll_A = std::bind(std::uniform_int_distribution<int>(1, _attack), std::mt19937(mt_ran));
-	auto diceRoll_pA = std::bind(std::uniform_int_distribution<int>(1, player.GetAttack()), std::mt19937(mt_rane));
+	std::mt19937 mt_ran(time(0) % _skill % 15);
+	std::mt19937 mt_rane(time(0) % player.GetSkill()%25);
+	auto diceRoll_A = std::bind(std::uniform_int_distribution<int>(5, _attack), std::mt19937(mt_ran));
+	auto diceRoll_pA = std::bind(std::uniform_int_distribution<int>(5, player.GetAttack()), std::mt19937(mt_rane));
 	if (diceRoll() > p_diceRoll())
 	{
 		// You get hit
@@ -137,7 +137,7 @@ bool Enemy::EngageBattle(Player &player, int targetX, int targetY)
 		// You hit 
 		TakeDamage(diceRoll_pA());
 		clear();
-		mvprintw(24, 0, "You do %d to %s\n", player.GetAttack() - _def % 2, _name.c_str());
+		mvprintw(24, 0, "You do %d to %s\n", prevHealth - _hp , _name.c_str());
 		
 		prevHealth = _hp;
 

@@ -69,6 +69,7 @@ public:
 	inline int GetX() { return _x; }
 	inline int GetY() { return _y; }
 	void TakeDamage(int val) { _hp -= val - _def % 2; }
+	void ProcessUseItem(int slot);
 	inline int GetDefense() {
 		return _def;
 	}
@@ -81,7 +82,7 @@ public:
 		{
 			if (empty == true)
 			{
-				plyer.PrintMsg("This slot is empty");
+				return;
 			}
 			else
 			{
@@ -90,12 +91,12 @@ public:
 					Mix_Chunk* heal = Mix_LoadWAV("audio\\heal.wav");
 					Mix_PlayChannel(-1, heal, 0);
 					plyer.AddHealth(40); // basic
-					plyer.PrintMsg("You feel better from that drink");
+					mvprintw(15,0,"You feel better from that drink");
 				}
 				if (id == ID_POTION_SKILL)
 				{
 					plyer.AddSkill(2);
-					plyer.PrintMsg("You feel more professional");
+					mvprintw(15,0,"You feel more professional");
 				}
 
 			}
@@ -142,6 +143,10 @@ public:
 				plyer.SetAttack(baseDmg + 2);
 			}
 			if (equipped == true){
+				if (id == ID_WEAPON_FISTS)
+				{
+					plyer.SetAttack(baseDmg);
+				}
 				if (id == ID_WEAPON_SWORD)
 				{
 					itemName = "Iron Sword";
@@ -160,6 +165,7 @@ public:
 					plyer.SetDefense(baseDef + 15);
 				}
 			}
+		
 		}
 		void EquipItem()
 		{

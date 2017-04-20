@@ -2,7 +2,21 @@
 #include <time.h>
 #include "Enemy.h"
 int slot;
-std::string msgs[4] = { "This game sucks", "I'm bored", "I should play MGS:V", "Bored..." };
+void Player::ProcessUseItem(int index)
+{
+	if (slot == index)	
+	{
+		if(slots[index-1].empty == true)
+		{
+			mvprintw(15, 0,"This slot is empty");
+		}
+		else
+		{
+			slots[index-1].UseItem(*this);
+			clear();
+		}
+	}
+}
 Player::Player()
 {
 }
@@ -47,6 +61,40 @@ void Player::InsertWeapon(int id)
 				alreadyInInventory = true;
 				wSlots[i].empty = false;
 			}
+			else
+			{
+					return;
+			}
+		}
+		else
+		{
+				clear();
+				mvprintw(15, 0, "Which slot do you want to override?");
+				char i = getch();
+				int b = 0;
+				if(i == '1'){
+				b = 1;
+				}
+				if( i == '2' )
+				{
+					b = 2;
+				}
+				mvprintw(15, 0,"Do you want to swap item? Y or N");
+				char c = getch();
+				if(c == 'y'|| c == 'Y')
+				{
+					if(alreadyInInventory == false)
+					{
+						wSlots[b-1].AddToInventory(id, *this);
+						alreadyInInventory = true;
+						wSlots[b-1].empty = false;
+						return ;
+					}
+				}
+				else
+				{
+					return;
+				}
 		}
 	}
 }
@@ -126,48 +174,15 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 			slot = 4;
 		init_pair(5, COLOR_BLUE, COLOR_WHITE);
 		attron(COLOR_PAIR(5));
-		if (slot == 1)
-		{
-			if (slots[0].empty)
-			{
-				mvprintw(15,0,"This slot is empty\n");
-			}else{
-			slots[0].UseItem(*this);
-			clear();
-			}}
-		if (slot == 2)
-		{
-			if (slots[1].empty)
-			{
-				mvprintw(15,0,"This slot is empty\n");
-			}else{
-			slots[1].UseItem(*this);
-			clear();
-			}}
-		if (slot == 3)
-		{
-			if (slots[2].empty)
-			{
-				mvprintw(15,0,"This slot is empty\n");
-			}
-			else{
-			slots[2].UseItem(*this);
-			clear();
-			}}
-		if (slot == 4)
-		{
-			if (slots[3].empty)
-			{
-				mvprintw(15,0,"This slot is empty\n");
-			}else{
-			slots[3].UseItem(*this);
-			clear();
-			}
-		}
+		/*
+		 * Refactored the endless if statements into a single function
+		 * check implementation at top of file
+		 */
+		ProcessUseItem(slot);
 		noecho();
-		slot = 0;
-		}
+		slot = 0;	
 		 attroff(COLOR_PAIR(5));
+		 }
 		break;
 	default:
 		mvprintw(15,0,"Invalid Input. try again");
@@ -177,9 +192,10 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 
 bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<GenericActor> &actors, std::vector<Enemy> &enemy ,int targetX, int targetY, int &lvl)
 {
+	clear();
 	if ((map.GetTile(targetX, targetY) == '#'))
     {
-		PrintMsg("Seems you've hit a wall. hmm");
+		mvprintw(15, 0, "You bumped into a wall");
 		return false;
 	}
 	if ((map.GetTile(targetX, targetY) == '|') || (map.GetTile(targetX,targetY) == '-') || map.GetTile(targetX, targetY) == 'X')
@@ -304,6 +320,7 @@ bool Player::ProcessMove(Map &map, std::vector<Door> &doors, std::vector<Generic
 		lvl = 7;
 		return false;
 	}
+	// Enemy Tile Types
 	if (map.GetTile(targetX, targetY) == 'g' || map.GetTile(targetX, targetY) == 'G' || map.GetTile(targetX, targetY) == 's' || map.GetTile(targetX, targetY) == 'S' || map.GetTile(targetX, targetY) == 'r' || map.GetTile(targetX, targetY) == 'R')
 	{
 		for (int i = 0; i < enemy.size(); i++)

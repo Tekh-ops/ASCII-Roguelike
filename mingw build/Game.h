@@ -101,6 +101,7 @@ namespace Game{
 					printw(" %d\\%d", player.GetXP(), player.GetXpTilNextLevel());
 					mvprintw(19, 50, "You Do %d raw damage", player.GetAttack());
 					mvprintw(20, 50, "Your lockpicking skill is %d", player.GetSkill());
+					mvprintw(24, 15, "Q : Quit Game R: Use Item X: Clear Screen V: Drop Item");
 				//	std::cout << "  Attack Power: " << player.GetAttack() << std::endl;
 				//	std::cout << "Lockpick Skill: " << player.GetSkill() << std::endl;
 				//	std::cout << "XP To Next Level: " << player.GetXP() << " \\ " << player.GetXpTilNextLevel() << std::endl;
