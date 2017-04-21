@@ -47,6 +47,7 @@ public:
 			_xp = 0;
 			_xpReq += 20;
 			_skill += 2;
+			_defaultDef += 5;
 			_level++;
 			attron(COLOR_PAIR(1));
 			mvprintw(14,0,"Leveled Up!\n");
@@ -65,6 +66,8 @@ public:
 	inline int GetSkill() { return _lockPick; }
 	inline int GetLevel() { return _level; }
 	inline int GetAttack() { return _attack; }
+	inline int GetDefAttack() { return _defaultAttack; }
+	inline int GetDefDefense() { return _defaultDef; }
 	inline int GetXP() { return _xp; }
 	inline int GetX() { return _x; }
 	inline int GetY() { return _y; }
@@ -129,17 +132,17 @@ public:
 	struct WeaponSlot
 	{
 		int id = ID_WEAPON_FISTS;
+
 		bool empty = true;
 		bool equipped = true;
 		std::string itemName = "Fists";
 		void AddToInventory(int id, Player & plyer, char* name)
 		{
-			int baseDef = plyer.GetDefense();
-			int baseDmg = plyer.GetAttack();
+				int baseDmg = plyer.GetDefAttack();
+				int baseDefense = plyer.GetDefDefense();
 			if (equipped == false)
 			{
 				itemName = "Fists";
-				int baseDmg = plyer.GetAttack();
 				plyer.SetAttack(baseDmg - 10);
 			}
 			if (equipped == true){
@@ -147,13 +150,23 @@ public:
 				{
 					plyer.SetAttack(baseDmg + 10);
 				}
+				if(id == ID_WEAPON_CRUDE_SWORD)
+				{
+					plyer.SetAttack(baseDmg + 5);
+					plyer.SetDefense(baseDefense + 15);
+				}
+				if(id == ID_WEAPON_CRUELAXE)
+				{
+					plyer.SetAttack(baseDmg + 25);
+					plyer.SetDefense(baseDefense - 10);
+				}
 				if (id == ID_WEAPON_KITESHIELD)
 				{
-					plyer.SetDefense(baseDef + 10);
+					plyer.SetDefense(baseDmg + 10);
 				}
 				if (id == ID_WEAPON_ROUNDSHIELD)
 				{
-					plyer.SetDefense(baseDef + 15);
+					plyer.SetDefense(baseDefense + 15);
 				}
 				itemName = name;
 			}
@@ -211,6 +224,8 @@ private:
 	int _lockPick;
 	int _level = 1;
 	int _skill;	
+	int _defaultDef;
+	int _defaultAttack;
 };
 
 

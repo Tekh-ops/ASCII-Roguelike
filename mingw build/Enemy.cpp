@@ -88,10 +88,28 @@ Give Experience to player and check if I'm dead.
 bool Enemy::isDead(Map&map, Player &player)
 {
 	if (_hp <= 0){
+		std::mt19937 mt_rant_p(time(0));
 		map.SetTile('.', _x, _y); // Effectively remove the enemy from the map
 		player.AddXP(_xpGain); // Give XP
 		clear();
 		mvprintw(14,0,"You gained %d\n", _xpGain);
+		if(_tile == 'G')
+		{
+			player.InsertWeapon(ID_WEAPON_CRUELAXE, "Axe Of Gorbalt");
+		}
+		if(_tile == 'S')
+		{
+			player.InsertWeapon(ID_WEAPON_SCHEMEMACE, "Scheming Mace");
+		}
+		if( mt_rant_p() % 4 == 1 )
+		{
+			if(_tile == 'g')
+			{
+				mvprintw(15,0,"A weapon has dropped.");
+				getch();
+				player.InsertWeapon(ID_WEAPON_CRUDE_SWORD,"Crude Sword");
+			}
+		}
 		return true;
 	}
 

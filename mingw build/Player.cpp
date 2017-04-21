@@ -26,6 +26,8 @@ _def(defense), _hp(health), _lockPick(lockpick), _attack(attack), _skill(skill)
 {
 	_maxHP = _hp;
 	_xp = 0;
+	_defaultAttack = _attack;
+	_defaultDef = _def;
 }
 
 void Player::setPosition(int x, int y)
