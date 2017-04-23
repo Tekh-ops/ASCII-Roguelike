@@ -1,5 +1,8 @@
 #include <iostream>
 #include <vector>
+#include "SaveWriter.h"
+#include "Map.h"
+#include "GenericActor.h"
 #include "Player.h"
 #include <SDL2/SDL_mixer.h>
 #include <curses.h>
@@ -46,6 +49,7 @@ namespace Game{
 		void RunGame(Map map[], Player &player, WINDOW* window)
 		{
 			/*We just use this to handle pretty much everything to do with initialization*/
+	
 			bool run = GAME_ACTIVE; // Run flag (affects whether game still runs)
 			bool LevelLoaded = false;
 			char input;
@@ -63,6 +67,9 @@ namespace Game{
 			mvprintw(4, 5,"Before we proceed, your name?\n");
 			move ( 5, 5 );
 			scanw("%s", name);
+			player.name = name;
+			SaveWriter saveWrite(player.name);
+			
 			mvprintw(7, 5, "Perfect. Welcome %s\n", name);
 			attron(A_BLINK);
 			mvaddstr(10, 5, "Press Any Key To Begin The Experience :)");
@@ -85,7 +92,7 @@ namespace Game{
 					mvprintw(1,4, "| %s |", map[currentLevel - 1].getName());
 					map[currentLevel - 1].printLevel();
 					mvprintw(18, 50, "You are level %d\n", player.GetLevel());
-					mvprintw(17, 0,"Name: %s\n", name);
+					mvprintw(17, 0,"Name: %s\n", player.name);
 					player.PrintInventory();
 					attron(COLOR_PAIR(2));
 					mvprintw(16, 50, "Your Health is ");
@@ -108,6 +115,12 @@ namespace Game{
 				//	std::cout << "\n" <<player.da << std::endl;
 				//	std::cout << "Q to quit game  R(Use item)";
 					input = getch();
+					if( input == 'Q' || input == 'q')
+					{
+						saveWrite.WriteData(player, currentLevel-1);
+						run = false;
+						return;
+					}
 					player.LevelUp();
 					int prev = currentLevel;
 					player.ProcessInput(input, doors, actors, enemies, map[currentLevel - 1], currentLevel);
@@ -132,6 +145,7 @@ namespace Game{
 				}
 				else
 				{
+					
 					Mix_PlayChannel(-1, taunt, 0);
 					std::cout << "\n\n\n\n\n\n\n\n\n\n";
 					std::cout << "Farewell, " << name << " Your legacy will be remembered." << std::endl;

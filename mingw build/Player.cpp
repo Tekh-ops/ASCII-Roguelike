@@ -1,6 +1,9 @@
 #include "Player.h"
 #include <time.h>
 #include "Enemy.h"
+#include "GenericActor.h"
+#include "SaveWriter.h"
+#include "Map.h"
 /*
  *  I should seriously refactor everything at one point should some one continue where this left off.
  *  Cause I say it's essentially done for now
@@ -161,12 +164,6 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 			map.SetTile('@', targetX, targetY);
 			setPosition(targetX, targetY);
 		}
-		break;
-	case 'Q':
-	case 'q':
-		// should replace with something else
-		// since it's not really an error
-		exit(0);
 		break;
 	case 'x':
 	case 'X':

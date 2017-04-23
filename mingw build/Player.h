@@ -3,13 +3,13 @@
 #include "common.h"
 #include <iostream>
 #include <sstream>
-#include "GenericActor.h"
 #include <curses.h>
 #include <SDL2/SDL_mixer.h>
 class Map;
 class Door;
+class GenericActor;
 class Enemy;
-
+class SaveWriter;
 // Inventory will be 5 of these.
 
 class Player
@@ -220,6 +220,7 @@ public:
 		
 	}
 	char* da = "Nothing noteworthy to say.";
+	char* name = "Fateless One";
 private:
 
 	int _x, _y;
