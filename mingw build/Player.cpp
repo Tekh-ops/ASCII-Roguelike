@@ -1,6 +1,10 @@
 #include "Player.h"
 #include <time.h>
 #include "Enemy.h"
+/*
+ *  I should seriously refactor everything at one point should some one continue where this left off.
+ *  Cause I say it's essentially done for now
+ */
 int slot;
 void Player::ProcessUseItem(int index)
 {
@@ -17,6 +21,14 @@ void Player::ProcessUseItem(int index)
 		}
 	}
 }
+
+void Player::RemoveItem(int slot)
+{
+	slots[slot].id = 0;
+	slots[slot].empty = true;
+	slots[slot].itemName = "Empty";
+}
+
 Player::Player()
 {
 }
@@ -159,6 +171,23 @@ void Player::ProcessInput(char in, std::vector<Door> &doors, std::vector<Generic
 	case 'x':
 	case 'X':
 		clear();
+		break;
+	case 't':
+	case 'T':{
+		mvprintw(14, 0, "Which slot do you want to empty?\n");
+		move (15, 0);
+		echo();
+		char slot_ac = getch();
+		if(slot_ac == '1')
+			slot = 1;
+		if(slot_ac == '2')
+			slot = 2;
+		if(slot_ac == '3')
+			slot = 3;
+		if(slot_ac == '4')
+			slot = 4;
+		RemoveItem(slot-1);
+		 }
 		break;
 	case 'R':
 	case 'r':{

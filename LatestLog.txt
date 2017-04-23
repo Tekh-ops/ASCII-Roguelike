@@ -1,3 +1,122 @@
+commit c5fcc00455d7fc7d7b246ce53305e196e93ae3c8
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 21:44:04 2017 -0400
+
+    fix
+
+commit 7f766a2d67e6d0ae89fbf65af080b776b2e699b5
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 21:42:59 2017 -0400
+
+    proper readme
+
+commit ba0eb791b193d8c9cc31a2284b0a12dd999dfa05
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 21:27:49 2017 -0400
+
+    Curses port pretty much finished
+
+commit bf8a0ddd42788e2fa9522c7fae24ab3ed69fec1f
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 21:16:43 2017 -0400
+
+    More porting
+
+commit ddc0eec0a4e8b7e4bf1694488330b5366d6cea0d
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 19:43:09 2017 -0400
+
+    curses port 1/4 complete
+    
+    Nothing to say
+
+commit ea1a9024f650a779f73b7a09fc1aba83592f8cb6
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 17:55:54 2017 -0400
+
+    Starting to port the MINGW version to Curses
+    
+    Wow... I'm going to have fun
+
+commit e65af19f91942d9096db551cdbf396af0aa26341
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 16:07:24 2017 -0400
+
+    MinGW version because reasons
+    
+    Compiled with
+    SourceFiles -Ofast -std=gnu++11
+
+commit c8a997456f40ae09c2d8e8c9a86be8dda02ca631
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 15:23:16 2017 -0400
+
+    Fixed another bug
+    
+    Changed UI slightly as well
+
+commit 3f3360c82bc6bcc8b3b306aa45f91113cacc9530
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 14:23:13 2017 -0400
+
+    This should fix the crashing
+    
+    I was dumb. I used a counter variable to track the index of the names.
+    But I forgot to reset it every reprocessing. So it is grabbing names
+    that do not exist. Silly me
+
+commit abc6b9924af0f7b82f3bfa7a7a0210070e1c8fbf
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 14:20:28 2017 -0400
+
+    crashing is related to villigers having unique names
+    
+    Oh boy....
+
+commit 35c8490b98ee8c17a7d5cd5d5eb75ad3ef9bc1b6
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 13:14:27 2017 -0400
+
+    Made weapons seperate from items
+    
+    Gotta fix that crash problem.
+
+commit 79b67b83b23e66c7cb969e94a101cb2db3adaf00
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 12:31:44 2017 -0400
+
+    Added Inventory System
+    
+    so far only health potions
+
+commit 3dde632af4ed0a6d9683ffb62660c57e4680b904
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 11:47:47 2017 -0400
+
+    don't know why these two weren't there before
+    
+    I added the two missing levels
+
+commit 6622b6a01e8b50ca17fcaf8816ec0ba5dd5ce2ec
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 11:46:47 2017 -0400
+
+    Slight refactoring
+
+commit 9f6883dce6785fc0059cf3028074c4d95f75ca04
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Mon Apr 17 19:18:31 2017 -0400
+
+    Added another level
+
+commit 3e267190bde4fb599832d71caa35e9a4dcd95d1d
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Mon Apr 17 18:43:25 2017 -0400
+
+    Added a bit of this a bit of that
+    
+    Added more enemy types mostly.
+
 commit 064d912aa3bfaa5777e89c5f1d6cdf61b6ff7859
 Author: Xpost2000 <xpost2000cod@gmail.com>
 Date:   Mon Apr 17 17:28:27 2017 -0400

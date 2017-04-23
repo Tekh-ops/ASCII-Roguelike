@@ -83,15 +83,20 @@ public:
 		std::string itemName = "Empty";
 		void UseItem(Player &plyer)
 		{
+
+			Mix_Chunk* heal = Mix_LoadWAV("audio\\heal.wav");
 			if (empty == true)
 			{
 				return;
 			}
 			else
 			{
+				if(id == 0)
+				{
+					empty = true;
+				}
 				if (id == ID_POTION_HEAL)
 				{
-					Mix_Chunk* heal = Mix_LoadWAV("audio\\heal.wav");
 					Mix_PlayChannel(-1, heal, 0);
 					plyer.AddHealth(40); // basic
 					mvprintw(15,0,"You feel better from that drink");
@@ -99,13 +104,14 @@ public:
 				if (id == ID_POTION_SKILL)
 				{
 					plyer.AddSkill(2);
+					Mix_PlayChannel(-1, heal, 0);
 					mvprintw(15,0,"You feel more professional");
 				}
 
 			}
 			empty = true;
 			itemName = "Empty";
-			id = -1;
+			id = 0;
 
 		}
 		void AddToInventory(int id)
@@ -128,7 +134,7 @@ public:
 	};
 	void InsertItem(int id);
 	void InsertWeapon(int id, char* name);
-
+	void RemoveItem(int slot);
 	struct WeaponSlot
 	{
 		int id = ID_WEAPON_FISTS;
