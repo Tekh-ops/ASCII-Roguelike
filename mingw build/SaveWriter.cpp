@@ -13,7 +13,7 @@ SaveWriter::~SaveWriter(){
 }
 
 void SaveWriter::WriteData(Player player, int currentLevel){
-	_writeFile << player.name << "|" << player.GetHealth() << "|" << player.GetMaxHP() << "|" << player.GetLevel() << "|" << player.GetX() << "|" << player.GetY() << "|" << currentLevel;	
+	_writeFile << player.name << " " << player.GetHealth() << " " << player.GetMaxHP() << " " << player.GetLevel() << " " << player.GetX() << " " << player.GetY() << " " << currentLevel;	
 }
 // Specified Data
 void SaveWriter::WriteImplictData(){
