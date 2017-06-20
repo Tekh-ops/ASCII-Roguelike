@@ -1,0 +1,2 @@
+CMD /C emcc -O2 -std=gnu++11 main.cpp Door.cpp Enemy.cpp GenericActor.cpp Map.cpp Player.cpp SaveWriter.cpp -o game.bc -I pdcurses34\ -I pdcurses34\pdcurses\ -I pdcurses34\sdl1\ -I pdcurses34\demos\ -I includes
+CMD /C emcc -s ASYNCIFY=1 --emrun -O2 -I includes includes\libcurses.o game.bc -o game.html --preload-file pdcfont.bmp --preload-file pdcicon.bmp --preload-file levels --preload-file audio --use-preload-plugins

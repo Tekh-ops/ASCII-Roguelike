@@ -3,3 +3,8 @@ TODO:
 	Why? The screen flickering destroys my immersion.
 	Besides I think it'd be nice to have a better look
 	for this.
+
+
+	Restructure the whole project. It's currently in a state
+	of disrepair, and a very bad state at that. Seriously. It's nigh
+	unsalvagable

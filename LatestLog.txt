@@ -1,3 +1,74 @@
+commit cb25ccc28069a83dab495b98ebeaba5776fcb469
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Sat Apr 22 22:12:57 2017 -0400
+
+    Changed the ways the save files are written
+    
+    so I don't need a delimiter later on
+
+commit 9df8b778b148bdf7a5fe72c903d9e039d1fd697b
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Sat Apr 22 22:08:24 2017 -0400
+
+    Save Writing added
+    
+    Now to add save loading. But first sleep and normal day stuff
+
+commit 3da22a4218e89f76595d8db1f8a31f6be9f95a86
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Sat Apr 22 20:48:52 2017 -0400
+
+    That's it I swear.
+    
+    Going to refactor/reorganize every once in a while
+
+commit cb0594c736cc92869d67fb95712f646ae5f4f1db
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Thu Apr 20 20:01:56 2017 -0400
+
+    Added Enemy Item Drops
+    
+    Since this is now in a condition that is playable and I'm happy with,
+    this project will be dorment because I cannot think of more things to
+    add to this short game.
+    
+    I will work on this for fun randomly now
+
+commit ad21bb85aaafc6a6ab9695d841228c603a369dae
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Thu Apr 20 19:10:50 2017 -0400
+
+    Made item system a bit more flexible
+    
+    Enemies will begin dropping items of their own once I add this in and
+    the Enemy dropping stuff
+
+commit ad776c7bfefbc8531e02d86d119b94b41fb8ce44
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Thu Apr 20 19:01:45 2017 -0400
+
+    Item Swapping Implemented
+    
+    Can be exploited and is in a prototype like stage
+
+commit 76b0fb7b8b844c637b0f969041a35d7ad275b4f2
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Wed Apr 19 19:10:27 2017 -0400
+
+    Added Audio and other "game" aspects
+
+commit eff2472eec3d9937fb6fb9c62d914a48a2801385
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Wed Apr 19 17:19:25 2017 -0400
+
+    Color Update Complete
+
+commit 4523f9d944e7ae9fe53146ac90a3c2fbf880fe8e
+Author: Xpost2000 <xpost2000cod@gmail.com>
+Date:   Tue Apr 18 21:55:22 2017 -0400
+
+    Proper fix
+
 commit c5fcc00455d7fc7d7b246ce53305e196e93ae3c8
 Author: Xpost2000 <xpost2000cod@gmail.com>
 Date:   Tue Apr 18 21:44:04 2017 -0400
