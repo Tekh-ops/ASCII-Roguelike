@@ -1,0 +1,23 @@
+Now in 2018 as I'm much more experienced than I was back then, I think it's time to "remaster" these old projects and complete them in the way I never could
+a few years ago.
+
+As a more experienced programmer I can now actually implement the ideas I used back then in a proper way and also since I have done
+these projects before it'll be much faster for me to reimplement and make improvements on this project.
+
+I noticed there are many issues with the way I did things back then.
+Including but not limited to:
+
+- Hard coded Item IDS
+- No usage of data driven programming which would've been very useful
+- Basically nonexistant decoupling
+- Also seemingly inconsistenent coding styles.
+- Lots and lots of needless repetition.
+
+"
+/*
+ *  I should seriously refactor everything at one point should some one continue where this left off.
+ *  Cause I say it's essentially done for now
+ */
+ "
+ I think the time for someone to continue where this left off is I guess now. Time to do what
+ I could never do last time.
